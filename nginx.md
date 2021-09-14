@@ -119,3 +119,54 @@ $ ./configure --prefix=/server/nginx \
 $ make -j4
 $ make install
 ```
+
+到此，nginx 安装完毕！
+
+## 配置 nginx
+
+nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
+
+1. [nginx.conf](./nginx/nginx.conf.md)
+
+    ```text
+    描述：nginx 主配置文件
+    数量：1个
+    路径：/server/nginx/conf/nginx.conf
+    操作：替换
+    ```
+
+2. [fastcgi-tp.conf](./nginx/fastcgi-tp.conf.md)
+
+    ```text
+    描述：tp6 站点配置模版
+    数量：按需新建，允许多个，命名需要区分
+    路径：/server/nginx/conf/fastcgi-tp.conf
+    操作：替换
+    ```
+
+3. [tp-sites.nginx](./nginx/tp-sites.nginx.md)
+
+    ```text
+    描述：静态站点配置模版
+    数量：按需新建，允许多个，命名需要区分
+    路径：/server/sites/*.nginx
+    操作：替换
+    ```
+
+4. [public-sites.nginx](./nginx/public-sites.nginx.md)
+
+    ```text
+    描述：静态站点配置模版（涉及跨域）
+    数量：按需新建，允许多个，命名需要区分
+    路径：/server/sites/*.nginx
+    操作：替换
+    ```
+
+5. [gbk-sites.nginx](./nginx/gbk-sites.nginx.md)
+
+    ```text
+    描述：修改默认编码格式为 gbk
+    数量：按需新建，允许多个
+    路径：/server/sites/*.nginx
+    操作：替换
+    ```
