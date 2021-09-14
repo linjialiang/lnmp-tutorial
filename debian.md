@@ -33,17 +33,26 @@ Debian 是为比较喜欢的 Linux 发行版，本次测试环境如下：
 ```sh
 $ cp /etc/apt/sources.list{,.bak}
 $ vim /etc/apt/sources.list
+
+# 镜像源内容
+deb http://mirrors.tencentyun.com/debian/ buster main contrib non-free
+deb http://mirrors.tencentyun.com/debian/ buster-updates main contrib non-free
+deb http://mirrors.tencentyun.com/debian/ buster-backports main contrib non-free
+deb http://mirrors.tencentyun.com/debian-security buster/updates main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ buster main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ buster-updates main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ buster-backports main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian-security buster/updates main contrib non-free
+
+# 更新软件包
+$ apt update -y
+$ apt upgrade -y
 ```
 
-源镜像
+移除多余的软件包
 
 ```sh
-deb https://mirrors.tencentyun.com/debian/ buster main
-deb https://mirrors.tencentyun.com/debian/ buster-updates main
-deb https://mirrors.tencentyun.com/debian/ buster-backports main
-deb https://mirrors.tencentyun.com/debian-security buster/updates main
-deb-src https://mirrors.tencentyun.com/debian/ buster main
-deb-src https://mirrors.tencentyun.com/debian/ buster-updates main
-deb-src https://mirrors.tencentyun.com/debian/ buster-backports main
-deb-src https://mirrors.tencentyun.com/debian-security buster/updates main
+# 获取已经安装的全部包
+$ apt list --installed > list.txt
+$ sz list.txt
 ```
