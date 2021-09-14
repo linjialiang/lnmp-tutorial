@@ -154,6 +154,10 @@ $ apt install git
 
 ### 设置 git 配置文件
 
+git 全局配置文件： /etc/gitconfig
+
+git 用户配置文件： ~/.gitconfig
+
 ```sh
 $ touch /etc/gitconfig
 $ vim /etc/gitconfig
