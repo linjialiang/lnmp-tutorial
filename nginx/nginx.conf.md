@@ -1,3 +1,4 @@
+```conf
 user nginx;
 
 worker_processes auto;
@@ -75,3 +76,4 @@ http
 
     include /server/sites/*.conf;
 }
+```
