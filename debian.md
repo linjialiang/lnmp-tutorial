@@ -34,7 +34,7 @@ Debian 是为比较喜欢的 Linux 发行版，本次测试环境如下：
 $ cp /etc/apt/sources.list{,.bak}
 $ vim /etc/apt/sources.list
 
-# 镜像源内容
+# Debian 10 全部镜像源
 deb http://mirrors.tencentyun.com/debian/ buster main contrib non-free
 deb http://mirrors.tencentyun.com/debian/ buster-updates main contrib non-free
 deb http://mirrors.tencentyun.com/debian/ buster-backports main contrib non-free
@@ -49,10 +49,27 @@ $ apt update -y
 $ apt upgrade -y
 ```
 
-移除多余的软件包
+### 大版本升级
+
+使用 Debian 11 官方全部的镜像源内容，确保升级时更新全部包
 
 ```sh
-# 获取已经安装的全部包
-$ apt list --installed > list.txt
-$ sz list.txt
+deb http://mirrors.tencentyun.com/debian/ bullseye main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ bullseye main contrib non-free
+
+deb http://mirrors.tencentyun.com/debian/ bullseye-updates main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ bullseye-updates main contrib non-free
+
+deb http://mirrors.tencentyun.com/debian/ bullseye-backports main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian/ bullseye-backports main contrib non-free
+
+deb http://mirrors.tencentyun.com/debian-security/ bullseye-security main contrib non-free
+deb-src http://mirrors.tencentyun.com/debian-security/ bullseye-security main contrib non-free
+```
+
+更新软件包
+
+```sh
+$ apt update
+$ apt full-upgrade -y
 ```
