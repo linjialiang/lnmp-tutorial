@@ -1,0 +1,40 @@
+server
+{
+    listen 80;
+    server_name example.com www.example.com;
+    root /server/www/www_example_com;
+
+    access_log /server/logs/nginx/www_example_com.log;
+    index index.html index.php;
+
+    # 设置站点仅至允许 GET、POST 请求
+    if ($request_method !~* GET|POST)
+    {
+        return 403;
+    }
+
+    location /
+    {
+        if (!-e $request_filename)
+        {
+            rewrite ^(.*)$ /index.php?s=/$1 last;
+            break;
+        }
+
+        # try_files $uri $uri/ /index.php$uri?$query_string;
+    }
+
+    location ~ \.php
+    {
+        fastcgi_pass unix:/server/run/php/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+
+        include fastcgi-tp.conf;
+    }
+
+    location ~ /\.ht
+    {
+        deny all;
+    }
+}

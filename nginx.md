@@ -170,3 +170,12 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
     路径：/server/sites/*.nginx
     操作：替换
     ```
+
+6. [utf8-gbk-sites.nginx](./nginx/gbk-sites.nginx.md)
+
+    ```text
+    描述：同时支持utf8和gbk编码
+    数量：按需新建，允许多个
+    路径：/server/sites/*.nginx
+    操作：替换
+    ```

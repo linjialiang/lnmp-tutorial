@@ -1,0 +1,15 @@
+[Unit]
+Description=Nginx 1.16.1
+Wants=mariadb.service
+Wants=php-fpm.service
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/server/run/nginx/nginx.pid
+ExecStart=/server/nginx/sbin/nginx
+ExecReload=/server/nginx/sbin/nginx -s reload
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
