@@ -6,8 +6,8 @@ location ~ ^.+\.(?:php|py|jsp|asp)$ {
 
 location ~ ^.+\.(?:js|css|gif|jpg|jpeg|png|ico|xlsx?|html?)$ {
     access_log  off;
-    log_not_found off;
-    expires      30d;
+    log_not_found off;  #
+    expires      30d;   #缓存30天
 }
 
 location ~(favicon.ico) {
@@ -18,7 +18,7 @@ location ~(favicon.ico) {
 location ~(robots.txt) {
     access_log  off;
     log_not_found off;
-    expires 99d;
+    expires 1d;
     break;
 }
 
