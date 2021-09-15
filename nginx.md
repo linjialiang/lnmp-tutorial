@@ -6,13 +6,12 @@ Nginx 是现如今性能最强劲的 Web 服务器及反向代理服务器
 
 Nginx 编译安装，所涉及到的软件包具体如下：
 
-| 源码及地址                                                                     |
-| ------------------------------------------------------------------------------ |
-| [nginx-1.20.1.tar.gz](http://nginx.org/en/download.html)                       |
-| [openssl-1.1.1l.tar.gz](https://www.openssl.org/source/)                       |
-| [pcre-8.45.tar.gz](https://sourceforge.net/projects/pcre/files/pcre/)          |
-| ~~[perl-5.34.0.tar.gz](https://www.activestate.com/products/perl/downloads/)~~ |
-| [zlib-1.2.11.tar.gz](http://www.zlib.net/)                                     |
+| 源码及地址                                                            |
+| --------------------------------------------------------------------- |
+| [nginx-1.20.1.tar.gz](http://nginx.org/en/download.html)              |
+| [openssl-1.1.1l.tar.gz](https://www.openssl.org/source/)              |
+| [pcre-8.45.tar.gz](https://sourceforge.net/projects/pcre/files/pcre/) |
+| [zlib-1.2.11.tar.gz](http://www.zlib.net/)                            |
 
 > 提示：Nginx 官方说明里，pcre 外库支持的版本是 `4.4 — 8.43`
 
@@ -22,6 +21,13 @@ Nginx 编译安装，所涉及到的软件包具体如下：
 
     ```sh
     $ useradd -c 'This is the nginx service user' -u 2002 -s /usr/sbin/nologin -d /server/www -M -U nginx
+    ```
+
+-   创建必要目录，并设置用户
+
+    ```sh
+    $ mkdir -p /server/nginx /package/lnmp /server/run/nginx /server/logs/nginx
+    $ chown nginx /server/run/nginx /server/logs/nginx
     ```
 
 -   查看当前版本全部构建参数
@@ -39,11 +45,15 @@ Nginx 编译安装，所涉及到的软件包具体如下：
     $ apt install libxml2-dev libxslt1-dev
     ```
 
+    本次没有构建该模块
+
 -   构建 http_image_filter_module 模块需要 `GD` 开发库
 
     ```sh
     $ apt install libgd-dev
     ```
+
+    本次没有构建该模块
 
 -   构建 http_geoip_module 模块需要 `libgeoip` 开发库
 
@@ -66,52 +76,98 @@ $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
 $ mkdir -p /server/nginx
 $ cd /package/lnmp/nginx-1.20.1
 $ ./configure --prefix=/server/nginx \
---builddir=/package/lnmp/nginx-1.20.1/build_nginx \
---user=nginx \
---group=nginx \
---error-log-path=/server/logs/nginx/error.log \
---http-log-path=/server/logs/nginx/access.log \
---pid-path=/server/run/nginx/nginx.pid \
-# 核心功能模块
---with-threads \
---with-file-aio \
-# 启用http功能模块
---with-http_ssl_module \
---with-http_v2_module \
---with-http_realip_module \
---with-http_addition_module \
---with-http_xslt_module \
---with-http_image_filter_module \
---with-http_geoip_module \
---with-http_sub_module \
---with-http_dav_module \
---with-http_flv_module \
---with-http_mp4_module \
---with-http_gunzip_module \
---with-http_gzip_static_module \
---with-http_auth_request_module \
---with-http_random_index_module \
---with-http_secure_link_module \
---with-http_degradation_module \
---with-http_slice_module \
---with-http_stub_status_module \
-# 启用邮箱服务
---with-mail \
---with-mail_ssl_module \
-# 启用负载均衡服务
---with-stream \
---with-stream_ssl_module \
---with-stream_realip_module \
---with-stream_geoip_module \
---with-stream_ssl_preread_module \
-# 外库路径
---with-pcre=/package/lnmp/pcre-8.45 \
---with-pcre-jit \
---with-zlib=/package/lnmp/zlib-1.2.11 \
---with-openssl=/package/lnmp/openssl-1.1.1l \
-# 开启调试
---with-debug
+... 内容见构建指令
 ```
+
+-   允许构建的全部指令（参考）
+
+    ```sh
+    $ ./configure --prefix=/server/nginx \
+    --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
+    --user=nginx \
+    --group=nginx \
+    --error-log-path=/server/logs/nginx/error.log \
+    --http-log-path=/server/logs/nginx/access.log \
+    --pid-path=/server/run/nginx/nginx.pid \
+    # 核心功能模块
+    --with-threads \
+    --with-file-aio \
+    # 启用http功能模块
+    --with-http_ssl_module \
+    --with-http_v2_module \
+    --with-http_realip_module \
+    --with-http_addition_module \
+    --with-http_xslt_module \
+    --with-http_image_filter_module \
+    --with-http_geoip_module \
+    --with-http_sub_module \
+    --with-http_dav_module \
+    --with-http_flv_module \
+    --with-http_mp4_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_auth_request_module \
+    --with-http_random_index_module \
+    --with-http_secure_link_module \
+    --with-http_degradation_module \
+    --with-http_slice_module \
+    --with-http_stub_status_module \
+    # 启用邮箱服务
+    --with-mail \
+    --with-mail_ssl_module \
+    # 启用负载均衡服务
+    --with-stream \
+    --with-stream_ssl_module \
+    --with-stream_realip_module \
+    --with-stream_geoip_module \
+    --with-stream_ssl_preread_module \
+    # 外库路径
+    --with-pcre=/package/lnmp/pcre-8.45 \
+    --with-pcre-jit \
+    --with-zlib=/package/lnmp/zlib-1.2.11 \
+    --with-openssl=/package/lnmp/openssl-1.1.1l \
+    # 开启调试，生产环境下建议禁用
+    --with-debug
+    ```
+
+-   普通服务器构建指令（当前构建指令）
+
+    ```sh
+    $ ./configure --prefix=/server/nginx \
+    --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
+    --user=nginx \
+    --group=nginx \
+    --error-log-path=/server/logs/nginx/error.log \
+    --http-log-path=/server/logs/nginx/access.log \
+    --pid-path=/server/run/nginx/nginx.pid \
+    # 核心功能模块
+    --with-threads \
+    --with-file-aio \
+    # 启用http功能模块
+    --with-http_ssl_module \
+    --with-http_v2_module \
+    --with-http_realip_module \
+    --with-http_geoip_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_secure_link_module \
+    --with-http_degradation_module \
+    --with-http_stub_status_module \
+    # 禁用http功能模块
+    --without-http_upstream_hash_module \
+    --without-http_upstream_ip_hash_module \
+    --without-http_upstream_least_conn_module \
+    --without-http_upstream_random_module \
+    --without-http_upstream_keepalive_module \
+    --without-http_upstream_zone_module \
+    # 外库路径
+    --with-pcre=/package/lnmp/pcre-8.45 \
+    --with-pcre-jit \
+    --with-zlib=/package/lnmp/zlib-1.2.11 \
+    --with-openssl=/package/lnmp/openssl-1.1.1l
+    ```
+
+在 Debian 11 下，亲测 nginx-1.20.1 能完成上面两套指令的构建
 
 ### 开始构建
 
@@ -134,12 +190,12 @@ $ curl -I 127.0.0.1
     ```sh
     HTTP/1.1 200 OK
     Server: nginx/1.20.1
-    Date: Wed, 15 Sep 2021 00:45:25 GMT
+    Date: Wed, 15 Sep 2021 12:39:28 GMT
     Content-Type: text/html
     Content-Length: 612
-    Last-Modified: Tue, 14 Sep 2021 15:30:02 GMT
+    Last-Modified: Wed, 15 Sep 2021 12:38:19 GMT
     Connection: keep-alive
-    ETag: "6140bffa-264"
+    ETag: "6141e93b-264"
     Accept-Ranges: bytes
     ```
 
