@@ -1,6 +1,7 @@
+```conf
 server
 {
-    charset gbk;
+    charset charset ISO-88509-1;
     listen 80;
     server_name example.com www.example.com;
     root /server/www/www_example_com;
@@ -18,3 +19,4 @@ server
         deny all;
     }
 }
+```

@@ -120,7 +120,36 @@ $ make -j4
 $ make install
 ```
 
-到此，nginx 安装完毕！
+### 测试
+
+使用 curl 检测是否成功
+
+```sh
+$ /server/nginx/sbin/nginx
+$ curl -I 127.0.0.1
+```
+
+-   成功信号：
+
+    ```sh
+    HTTP/1.1 200 OK
+    Server: nginx/1.20.1
+    Date: Wed, 15 Sep 2021 00:45:25 GMT
+    Content-Type: text/html
+    Content-Length: 612
+    Last-Modified: Tue, 14 Sep 2021 15:30:02 GMT
+    Connection: keep-alive
+    ETag: "6140bffa-264"
+    Accept-Ranges: bytes
+    ```
+
+-   失败信号：
+
+    ```sh
+    curl: (7) Failed to connect to 127.0.0.1 port 80: 拒绝连接
+    ```
+
+到此，nginx 构建结束！
 
 ## 配置 nginx
 

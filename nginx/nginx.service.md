@@ -1,3 +1,4 @@
+```sh
 [Unit]
 Description=Nginx 1.16.1
 Wants=mariadb.service
@@ -13,3 +14,4 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+```

@@ -1,5 +1,7 @@
+```conf
 server
 {
+    charset gbk;
     listen 80;
     server_name example.com www.example.com;
     root /server/www/www_example_com;
@@ -11,9 +13,10 @@ server
     {
         return 403;
     }
-    
+
     location ~ /\.ht
     {
         deny all;
     }
 }
+```

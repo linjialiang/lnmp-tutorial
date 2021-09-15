@@ -1,3 +1,4 @@
+```conf
 fastcgi_param  PATH_INFO          $fastcgi_path_info;
 
 fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
@@ -25,3 +26,4 @@ fastcgi_param  SERVER_NAME        $server_name;
 
 # PHP only, required if PHP was built with --enable-force-cgi-redirect
 fastcgi_param  REDIRECT_STATUS    200;
+```
