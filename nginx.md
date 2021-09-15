@@ -134,6 +134,7 @@ $ ./configure --prefix=/server/nginx \
 
     ```sh
     $ ./configure --prefix=/server/nginx \
+    --build=httpd \
     --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
     --user=nginx \
     --group=nginx \

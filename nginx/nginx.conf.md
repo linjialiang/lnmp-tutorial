@@ -1,6 +1,4 @@
 ```conf
-user nginx;
-
 worker_processes auto;
 
 worker_shutdown_timeout 30s;
@@ -24,23 +22,19 @@ http
     autoindex_localtime on;
     charset utf-8;
 
-    gzip on;
+    include gzip.conf;
     sendfile on;
 
-    keepalive_timeout 65;
-
-    # 隐藏 nginx 版本号
-    server_tokens off;
+    # 在响应头中发送的 Nginx 版本号 为 构建时 --build 的参数值
+    server_tokens build;
     # 隐藏fastcgi的头信息，如：php-fpm
     fastcgi_hide_header X-Powered-By;
     # 隐藏反向代理服务器头信息，如：httpd
-    # proxy_hide_header X-Powered-By;
+    proxy_hide_header X-Powered-By;
     # nginx 启用 TLSv1.3 加密传输协议
     ssl_protocols TLSv1.3;
     # 解决点击劫持漏洞，页面只能被本站页面嵌入到 iframe 或者 frame 中
     add_header X-Frame-Options sameorigin always;
-    # 开启目录浏览功能，默认禁用目录浏览
-    # autoindex on;
 
     server
     {
@@ -52,7 +46,7 @@ http
         index index.php;
 
         # 站点仅允许温州电信ip段访问
-        allow 60.181.0.0/16;
+        allow 39.186.0.0/16;
         deny all;
 
         # 设置站点仅至允许 GET、POST 请求
@@ -63,12 +57,12 @@ http
 
         location ~ \.php
         {
-            fastcgi_pass unix:/server/run/php/php-fpm.sock;
+            fastcgi_pass unix:/server/run/php/php8-fpm.sock;
 
             include fastcgi.conf;
         }
 
-        location ~ /\.ht
+        location ~ /\.
         {
             deny all;
         }

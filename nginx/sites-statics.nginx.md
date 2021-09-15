@@ -1,6 +1,7 @@
 ```conf
 server
 {
+    # == 编码3选1，通常建议全部使用 utf-8
     # 支持gbk编码
     charset gbk;
     # 支持utf8编码，默认值
@@ -34,8 +35,8 @@ server
         }
     }
 
-    location ~ /\.ht
-    {
+
+    location ~ /\. {
         deny all;
     }
 }

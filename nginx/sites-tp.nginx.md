@@ -25,6 +25,11 @@ server
         # try_files $uri $uri/ /index.php$uri?$query_string;
     }
 
+
+    types {
+        application/php php py jsp asp;
+    }
+
     location ~ \.php
     {
         fastcgi_pass unix:/server/run/php/php-fpm.sock;
