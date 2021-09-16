@@ -445,3 +445,16 @@ nginx 常用管理指令
     ```sh
     $ systemctl daemon-reload
     ```
+
+nginx 单元（Unit）管理
+
+```sh
+# 立即激活单元
+$ systemctl start nginx.service
+
+# 立即停止单元
+$ systemctl stop nginx.service
+
+# 重新加载配置
+$ systemctl reload nginx.service
+```
