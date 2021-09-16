@@ -353,7 +353,25 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
     操作：新增，通过 include 加载
     ```
 
-5. [sites-statics.nginx](./nginx/sites-statics.nginx.md)
+5. [limit_req_http.conf](./nginx/limit_req_http.conf.md)
+
+    ```text
+    描述：http 区块，设置限制请求
+    数量：按需新建，允许多个，命名需要区分
+    路径：/server/nginx/conf/limit_req_http.conf
+    操作：新增，通过 include 加载
+    ```
+
+6. [limit_req_server.conf](./nginx/limit_req_server.conf.md)
+
+    ```text
+    描述：server 区块，设置限制请求
+    数量：按需新建，允许多个，命名需要区分
+    路径：/server/nginx/conf/limit_req_server.conf
+    操作：新增，通过 include 加载
+    ```
+
+7. [sites-statics.nginx](./nginx/sites-statics.nginx.md)
 
     ```text
     描述：静态站点配置模版
@@ -362,7 +380,7 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
     操作：新增
     ```
 
-6. [sites-tp.nginx](./nginx/sites-tp.nginx.md)
+8. [sites-tp.nginx](./nginx/sites-tp.nginx.md)
 
     ```text
     描述：tp6 站点配置
