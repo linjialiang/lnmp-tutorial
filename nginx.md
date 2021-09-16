@@ -224,11 +224,10 @@ $ ./configure --prefix=/server/nginx \
 ... 内容见升级指令
 ```
 
-### 升级指令（加入了--build 选项）
+### 升级指令
 
 ```sh
 $ ./configure --prefix=/server/nginx \
---build=httpd \
 --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
 --user=nginx \
 --group=nginx \

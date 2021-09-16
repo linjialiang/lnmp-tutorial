@@ -19,6 +19,9 @@ server
 
     location /
     {
+        # 加载请求限制，server区域，需要结合http区块
+        include limit_req_server.conf
+
         if (!-e $request_filename)
         {
             rewrite ^(.*)$ /index.php?s=/$1 last;
@@ -28,10 +31,9 @@ server
         # try_files $uri $uri/ /index.php$uri?$query_string;
     }
 
-
-    types {
-        application/php php py jsp asp;
-    }
+    # types {
+    #     application/php php py jsp asp;
+    # }
 
     location ~ \.php
     {

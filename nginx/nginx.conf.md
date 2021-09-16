@@ -28,8 +28,8 @@ http
     include gzip.conf;
     sendfile on;
 
-    # 在响应头中发送的 Nginx 版本号 为 构建时 --build 的参数值
-    server_tokens build;
+    # 在响应头中隐藏 Nginx 版本号
+    server_tokens off;
     # 隐藏fastcgi的头信息，如：php-fpm
     fastcgi_hide_header X-Powered-By;
     # 隐藏反向代理服务器头信息，如：httpd
@@ -38,6 +38,9 @@ http
     ssl_protocols TLSv1.3;
     # 解决点击劫持漏洞，页面只能被本站页面嵌入到 iframe 或者 frame 中
     add_header X-Frame-Options sameorigin always;
+
+    # 加载请求限制, http 区域
+    include limit_req_http.conf
 
     server
     {
@@ -60,6 +63,11 @@ http
 
         # 启用缓存设置，自定义配置文件
         include cache.conf;
+
+        location / {
+            # 加载请求限制，server区域，需要结合http区块
+            include limit_req_server.conf
+        }
 
         location ~ \.php
         {

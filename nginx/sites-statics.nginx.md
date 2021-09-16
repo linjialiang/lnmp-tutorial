@@ -25,9 +25,13 @@ server
     # 启用缓存设置，自定义配置文件
     include cache.conf;
 
-    # 开启跨域访问资源
     location /
     {
+
+        # 加载请求限制，server区域，需要结合http区块
+        include limit_req_server.conf
+
+        # 开启跨域访问资源 == start
         add_header Access-Control-Allow-Origin *;
         add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
         add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
@@ -36,6 +40,7 @@ server
         {
             return 204;
         }
+        # 开启跨域访问资源 == end
     }
 
     location ~ /\. {
