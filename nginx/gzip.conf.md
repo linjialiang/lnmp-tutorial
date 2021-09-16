@@ -23,7 +23,7 @@ gzip_disable msie6;
 # 文件小于100k，不开启gzip压缩
 gzip_min_length 1k;
 # 对反向代理传输数据，提供压缩，默认就好
-gzip_proxied off
+gzip_proxied off;
 # 指定文件类型启用gzip压缩，强制开启text/html
 gzip_types text/plain text/css text/xml application/javascript application/json;
 # 通过启用响应标头字段，来控制是否压缩
