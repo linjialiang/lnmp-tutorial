@@ -29,7 +29,7 @@ server
     {
 
         # 加载请求限制，server区域，需要结合http区块
-        include limit_req_server.conf
+        include limit_req_server.conf;
 
         # 开启跨域访问资源 == start
         add_header Access-Control-Allow-Origin *;

@@ -40,7 +40,7 @@ http
     add_header X-Frame-Options sameorigin always;
 
     # 加载请求限制, http 区域
-    include limit_req_http.conf
+    include limit_req_http.conf;
 
     server
     {
@@ -66,7 +66,7 @@ http
 
         location / {
             # 加载请求限制，server区域，需要结合http区块
-            include limit_req_server.conf
+            include limit_req_server.conf;
         }
 
         location ~ \.php

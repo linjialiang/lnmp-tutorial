@@ -20,7 +20,7 @@ server
     location /
     {
         # 加载请求限制，server区域，需要结合http区块
-        include limit_req_server.conf
+        include limit_req_server.conf;
 
         if (!-e $request_filename)
         {
