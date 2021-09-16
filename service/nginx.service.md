@@ -1,6 +1,6 @@
 ```sh
 [Unit]
-Description=Nginx 1.16.1
+Description=nginx-1.20.1
 Wants=mariadb.service
 Wants=php-fpm.service
 After=network.target

@@ -392,3 +392,56 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
     ```
 
 ## 管理 nginx
+
+nginx 常用管理指令
+
+| 操作         | 指令                               |
+| ------------ | ---------------------------------- |
+| 启动         | /server/nginx/sbin/nginx           |
+| 正常关闭     | /server/nginx/sbin/nginx -s quit   |
+| 快速关闭     | /server/nginx/sbin/nginx -s stop   |
+| 重新载入     | /server/nginx/sbin/nginx -s reload |
+| 重新打开日志 | /server/nginx/sbin/nginx -s reopen |
+| 检测配置文件 | /server/nginx/sbin/nginx -t        |
+| 显示帮助信息 | /server/nginx/sbin/nginx -h        |
+| 列出配置信息 | /server/nginx/sbin/nginx -T        |
+
+-   指定配置文件,启动 Nginx
+
+    ```sh
+    $ /server/nginx/sbin/nginx -c /server/nginx/conf/nginx.conf
+    ```
+
+-   检测指定的 Nginx 配置文件
+
+    ```sh
+    $ /server/nginx/sbin/nginx -t -c /server/nginx/conf/nginx.conf
+    ```
+
+-   强制停止 Nginx 进程
+
+    ```sh
+    $ pkill -9 nginx
+    ```
+
+## Systemd 单元(Unit)
+
+用 Systemd 来管理守护进程更方便，建议为 Nginx 添加 Systemd 单元（Unit）
+
+-   将 [nginx.service](./service/nginx.service.md) 拷贝/usr/lib/systemd/system 目录
+
+    ```sh
+    $ mv nginx.service /usr/lib/systemd/system/
+    ```
+
+-   使用类似如下指令加入开机启动
+
+    ```sh
+    $ systemctl enable nginx
+    ```
+
+-   重新加载 Systemd 配置文件
+
+    ```sh
+    $ systemctl daemon-reload
+    ```
