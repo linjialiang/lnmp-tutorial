@@ -134,7 +134,6 @@ $ ./configure --prefix=/server/nginx \
 
     ```sh
     $ ./configure --prefix=/server/nginx \
-    --build=httpd \
     --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
     --user=nginx \
     --group=nginx \
@@ -170,10 +169,11 @@ $ ./configure --prefix=/server/nginx \
 
 在 Debian 11 下，亲测 nginx-1.20.1 能完成上面两套指令的构建
 
-### 开始构建
+### 开始编译安装
 
 ```sh
-$ make -j4
+# 4核以上可以使用 make -j4 编译
+$ make
 $ make install
 ```
 
@@ -207,6 +207,71 @@ $ curl -I 127.0.0.1
     ```
 
 到此，nginx 构建结束！
+
+## 记录一次升级
+
+Nginx 平滑升级，具体操作如下：
+
+-   构建指令：
+
+    ```sh
+    $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
+    $ mkdir -p /server/nginx
+    $ cd /package/lnmp/nginx-1.20.1
+    $ ./configure --prefix=/server/nginx \
+    ... 内容见升级指令
+    ```
+
+-   升级指令（加入了--build 选项）
+
+    ```sh
+    $ ./configure --prefix=/server/nginx \
+    --build=httpd \
+    --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
+    --user=nginx \
+    --group=nginx \
+    --error-log-path=/server/logs/nginx/error.log \
+    --http-log-path=/server/logs/nginx/access.log \
+    --pid-path=/server/run/nginx/nginx.pid \
+    # 核心功能模块
+    --with-threads \
+    --with-file-aio \
+    # 启用http功能模块
+    --with-http_ssl_module \
+    --with-http_v2_module \
+    --with-http_realip_module \
+    --with-http_geoip_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_secure_link_module \
+    --with-http_degradation_module \
+    --with-http_stub_status_module \
+    # 禁用http功能模块
+    --without-http_upstream_hash_module \
+    --without-http_upstream_ip_hash_module \
+    --without-http_upstream_least_conn_module \
+    --without-http_upstream_random_module \
+    --without-http_upstream_keepalive_module \
+    --without-http_upstream_zone_module \
+    # 外库路径
+    --with-pcre=/package/lnmp/pcre-8.45 \
+    --with-pcre-jit \
+    --with-zlib=/package/lnmp/zlib-1.2.11 \
+    --with-openssl=/package/lnmp/openssl-1.1.1l
+    ```
+
+-   开始编译（只编译，不安装）
+
+    ```sh
+    $ make
+    ```
+
+-   拷贝文件到 nginx/sbin 目录下
+
+    ```sh
+    $ cp -p -r /package/lnmp/nginx-1.16.1/nginx_bulid/nginx /server/nginx/sbin/
+    ```
+按第一次构建 nginx 的方式，来升级
 
 ## 配置 nginx
 
@@ -265,3 +330,7 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
     路径：/server/sites/*.nginx
     操作：替换
     ```
+
+```
+
+```

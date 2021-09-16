@@ -18,10 +18,13 @@ http
     include mime.types;
     default_type application/octet-stream;
 
-    autoindex_exact_size on;
-    autoindex_localtime on;
     charset utf-8;
 
+    autoindex off;
+    autoindex_exact_size on;
+    autoindex_localtime on;
+
+    # 启用 gzip 压缩，自定义配置文件
     include gzip.conf;
     sendfile on;
 
@@ -54,6 +57,9 @@ http
         {
             return 403;
         }
+
+        # 启用缓存设置，自定义配置文件
+        include cache.conf;
 
         location ~ \.php
         {

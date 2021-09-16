@@ -14,6 +14,9 @@ server
         return 403;
     }
 
+    # 启用缓存设置，自定义配置文件
+    include cache.conf;
+
     location /
     {
         if (!-e $request_filename)

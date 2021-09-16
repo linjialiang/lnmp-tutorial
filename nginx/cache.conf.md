@@ -1,25 +1,13 @@
 ```conf
-location ~ ^.+\.(?:php|py|jsp|asp)$ {
-	expires      off;
-}
-
-
-location ~ ^.+\.(?:js|css|gif|jpg|jpeg|png|ico|xlsx?|html?)$ {
-    access_log  off;
-    log_not_found off;  #
-    expires      30d;   #缓存30天
-}
-
-location ~(favicon.ico) {
-    log_not_found off;
-    expires 99d;
-    break;
-}
-location ~(robots.txt) {
-    access_log  off;
-    log_not_found off;
-    expires 1d;
+location ~ ^.+\.(?:html?)$ {
+    expires      30d;   # 缓存30天
     break;
 }
 
+location ~ ^.+\.(?:txt|js|css|gif|jpg|jpeg|png|ico|xlsx?)$ {
+    access_log  off;    # 关闭访问日志
+    log_not_found off;  # 关闭错误日志
+    expires      30d;   # 缓存30天
+    break;
+}
 ```
