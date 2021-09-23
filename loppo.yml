@@ -1,0 +1,10 @@
+dir: docs
+output: dist
+site: LNMP教程
+theme: wangdoc
+customization: false
+themeDir: loppo-theme
+direction: ltr
+id: lnmp
+hasComments: true
+isTutorial: true
