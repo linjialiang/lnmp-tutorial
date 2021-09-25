@@ -4,13 +4,13 @@ LNMP 第二个要安装的是 MariaDB ，事实上 MariaDB 官方文档非常糟
 
 MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
 
-## 添加 MariaDB 源镜像
+## 添加 MariaDB 镜像
 
-预编译版本使用使用 apt 来安装和管理 MariaDB
+预编译版本使用使用 apt 来安装 MariaDB
 
-### 生成 MariaDB 源镜像信息
+### 生成镜像信息
 
-点击 [获取 MariaDB 源镜像](https://downloads.mariadb.org/mariadb/repositories) ，通过 4 步选择，生成最符合你的 MariaDB 源镜像信息
+点击 [获取 MariaDB 镜像](https://downloads.mariadb.org/mariadb/repositories) ，通过 4 步选择，生成最符合你的 MariaDB 镜像信息
 
 1. 选择 Linux 发行版
 
@@ -40,7 +40,7 @@ MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
 
     > 提示：本次测试环境使用的是腾讯云服务器，所以 MariaDB 镜像选择的是腾讯软件源
 
-### 添加 MariaDB 源镜像的具体操作
+### 具体操作
 
 1. 外网导入 MariaDB 密钥
 
@@ -53,9 +53,7 @@ MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
 
 2. 内网导入 MariaDB 密钥
 
-    MariaDB 源镜像的公共密钥是唯一的，简单说就是全球服务器用的都是一样的
-
-    因此，内网服务器可以将下载好的 [MariaDB 密钥](./mariadb/mariadb_release_signing_key.asc.md) 拷贝到 /etc/apt/trusted.gpg.d/ 目录
+    MariaDB 镜像的公共密钥是唯一的，简单说就是全球服务器用的都是一样的，因此将下载好的 [MariaDB 密钥](./mariadb/mariadb_release_signing_key.asc.md) 文件拷贝到 /etc/apt/trusted.gpg.d/ 目录下即可
 
     具体操作如下：
 
@@ -63,6 +61,7 @@ MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
     $ apt install software-properties-common dirmngr
     $ vim /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc
     # 插入 MariaDB 密钥内容 ...
+    $ chmod -c 644 /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc
     ```
 
 3. 为 MariaDB 创建自定义源文件
@@ -92,7 +91,7 @@ MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
 
 4. 更新 Debian 源
 
-    新加入的 MariaDB 源镜像，必须更新后才能生效
+    新加入的 MariaDB 镜像，必须更新后才能生效
 
     ```sh
     $ apt update
