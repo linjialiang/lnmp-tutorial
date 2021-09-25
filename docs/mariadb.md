@@ -166,7 +166,7 @@ $ apt install mariadb-server
 
 ### 配置文件路径
 
-1. 主配置文件
+1. MariaDB 主配置文件
 
     MariaDB 服务器端的主配置文件只有 1 个，路径为：/etc/mysql/my.cnf
 
@@ -175,6 +175,19 @@ $ apt install mariadb-server
     /etc/alternatives/my.cnf 又是 /etc/mysql/mariadb.cnf 的软链接
 
     > 提示：所以修改和备份主配置文件，都应该在 /etc/mysql/mariadb.cnf 文件上下工夫
+
+2. MariaDB 子配置文件
+
+    以下两个目录中的所有 `.cnf` 格式文件，为 MariaDB 的子配置文件
+
+    ```text
+    !includedir /etc/mysql/conf.d/
+    !includedir /etc/mysql/mariadb.conf.d/
+    ```
+
+3. MariaDB 修改配置文件
+
+    通常我们只需要修改 [50-server.cnf](./mariadb/50-server.cnf) 这个子配置文件
 
 ### 首先，停止 MariaDB 服务
 
