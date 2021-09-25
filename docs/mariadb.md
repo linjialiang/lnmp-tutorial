@@ -187,7 +187,22 @@ $ apt install mariadb-server
 
 3. MariaDB 修改配置文件
 
-    通常我们只需要修改 [50-server.cnf](./mariadb/50-server.cnf) 这个子配置文件
+    我们主要修改 [50-server.cnf](./mariadb/50-server.cnf) 配置文件
+    简单修改 [mariadb.cnf]配置文件
+
+### MariaDB 选项组说明
+
+点击查询 [选项组详情](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/)
+
+1. [client-server]
+
+    MariaDB 客户端和服务器端都能读取的选项，这对于套接字和端口等选项很有用，如：
+
+    ```conf
+    [client-server]
+    port = 3306
+    socket = /server/run/mariadb/mariadb.sock
+    ```
 
 ### 首先，停止 MariaDB 服务
 
