@@ -105,40 +105,55 @@ MariaDB 的预编译完全足够 phper 使用，具体安装方法如下：
 $ apt install mariadb-server
 ```
 
-### 三、Systemd Unit(单元)文件
+## 系统单元管理
 
-`mariadb-server` 安装信息的最后一段话，展示如下信息：
+系统单元管理 就是 Systemd Unit 管理，是一个相对复杂的指令集，这里不做过多的讲解，下面是针对 MariaDB 的内容：
 
-```sh
-正在设置 rsync (3.1.3-6) ...
-Created symlink /etc/systemd/system/multi-user.target.wants/rsync.service → /lib/systemd/system/rsync.service.
-正在设置 libhttp-date-perl (6.02-1) ...
-正在设置 mariadb-server-core-10.4 (1:10.4.11+maria~buster) ...
-正在设置 mariadb-server-10.4 (1:10.4.11+maria~buster) ...
-Failed to stop mysql.service: Unit mysql.service not loaded.
-Created symlink /etc/systemd/system/mysql.service → /lib/systemd/system/mariadb.service.
-Created symlink /etc/systemd/system/mysqld.service → /lib/systemd/system/mariadb.service.
-Created symlink /etc/systemd/system/multi-user.target.wants/mariadb.service → /lib/systemd/system/mariadb.service.
-```
+### 安装信息解读
 
-这段话告诉我们如下信息：
+安装 MariaDB 区间出现了 3 段有意思的内容
 
-| 序号 | 信息                                                                                  |
-| ---- | ------------------------------------------------------------------------------------- |
-| 01   | rsync 是 MariaDB 的依赖项，当然小项目完全不必理会                                     |
-| 02   | 将 rsync Unit 加入了 `multi-user.target` target 组                                    |
-| 03   | 将 mariadb Unit 以别名 mysql 的方式成为系统 Unit                                      |
-| 04   | 将 mariadb Unit 以别名 mysql 的方式成为系统 Unit                                      |
-| 05   | 将 mariadb Unit 加入了 `multi-user.target` target 组                                  |
-| 06   | 如想马上使用 Systemd 控制 mariadb，请使用 `systemctl daemon-reload` 重载 Systemd 配置 |
+1. 提示 MariaDB 配置文件路径
 
-## 四、操作 MariaDB
+    ```text
+    正在设置 mariadb-common (1:10.6.4+maria~bullseye) ...
+    update-alternatives: 错误: 无 my.cnf 的候选项
+    update-alternatives: 使用 /etc/mysql/mariadb.cnf 来在自动模式中提供 /etc/mysql/my.cnf (my.cnf)
+    ```
 
-由上可知 MariaDB 是支持 `systemd` 管理的，具体请查阅 [systemd 实战篇](./../manual/06-systemd实战篇.md)
+2. rsync 系统单元管理
 
-## 五、配置 MariaDB
+    ```text
+    正在设置 rsync (3.2.3-4) ...
+    Created symlink /etc/systemd/system/multi-user.target.wants/rsync.service → /lib/systemd/system/rsync.service.
+    ```
 
-单间修改下 MariaDB，是它更加适合我们的个人需求，操作列表如下：
+    - 将 rsync 加入到系统单元的 multi-user.target 组
+    - 创建硬链接到 system 目录，以支持开机启动
+
+    > 提示：rsync 是 linux 系统下的数据镜像备份工具，是 MariaDB 的依赖项，会自动安装， 通常 phper 不需要了解
+
+3. MariaDB 系统单元管理
+
+    ```text
+    正在设置 mariadb-server-10.6 (1:10.6.4+maria~bullseye) ...
+    Created symlink /etc/systemd/system/multi-user.target.wants/mariadb.service → /lib/systemd/system/mariadb.service.
+    mariadb-extra.socket is a disabled or a static unit, not starting it.
+    mariadb-extra.socket is a disabled or a static unit, not starting it.
+    ```
+
+    - 将 mariadb 加入到系统单元的 multi-user.target 组
+    - 创建硬链接到 system 目录，以支持开机启动
+
+    > 提示：使用 systemctl daemon-reload 重载 Systemd 配置，即可使用 Systemd 来控制 MariaDB
+
+### MariaDB 系统单元文件
+
+安装好 MariaDB 以后，自动创建的 [系统单元文件](./service/mariadb.service.md)
+
+## 配置 MariaDB
+
+修改配置文件，让 MariaDB 更加容易管理和操作，具体如下：
 
 | 　序号 | 需要修改的配置项                |
 | ------ | ------------------------------- |
@@ -148,6 +163,18 @@ Created symlink /etc/systemd/system/multi-user.target.wants/mariadb.service → 
 | 04     | 修改 MariaDB 索引日志存放路径   |
 | 05     | 允许远程链接                    |
 | 06     | 创建 MariaDB 远程用户           |
+
+### 配置文件路径
+
+1. 主配置文件
+
+    MariaDB 服务器端的主配置文件只有 1 个，路径为：/etc/mysql/my.cnf
+
+    /etc/mysql/my.cnf 是 /etc/alternatives/my.cnf 的软链接
+
+    /etc/alternatives/my.cnf 又是 /etc/mysql/mariadb.cnf 的软链接
+
+    > 提示：所以修改和备份主配置文件，都应该在 /etc/mysql/mariadb.cnf 文件上下工夫
 
 ### 首先，停止 MariaDB 服务
 
