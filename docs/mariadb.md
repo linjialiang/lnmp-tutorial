@@ -206,16 +206,18 @@ $ apt install mariadb-server
 
 ### 查看各选项组配置情况
 
-MariaDB 服务器端选项组配置情况：
+查看 MariaDB 服务器端选项组配置情况：
 
 ```sh
 $ mariadbd --help --verbose
+$ mysqld --help --verbose
 ```
 
-MariaDB 客户端选项组配置情况：
+查看 MariaDB 客户端选项组配置情况：
 
 ```sh
 $ mariadb --help --verbose
+$ mysql --help --verbose
 ```
 
 ### 首先，停止 MariaDB 服务
@@ -228,31 +230,34 @@ $ systemctl stop mariadb
 
 ### 修改配置文件
 
-```sh
-$ cp -p -r /etc/mysql/my.cnf{,.bak}
-$ vim /etc/mysql/my.cnf
-```
+为了尽量减少修改，本次仅对 2 个配置文件做了修改：
 
-> my.cnf 文件修改的参数如下：
+1. 主配置文件
 
-| 属性                   | my.cnf 对应参数及参数值                             |
-| ---------------------- | --------------------------------------------------- |
-| 套接字                 | socket = /server/run/mariadb/mariadb.sock           |
-| pid 文件               | pid-file = /server/run/mariadb/mariadb.pid          |
-| 数据目录               | datadir = /server/data                              |
-| 二进制日志记录格式     | binlog_format = mixed                               |
-| 二进制日志文件过期时间 | expire_logs_days = 30                               |
-| 二进制日志每个文件容量 | max_binlog_size = 100M                              |
-| 二进制日志路径         | log_bin = /server/logs/mariadb/bin_log              |
-| 二进制日志索引文件路径 | log_bin_index = /server/logs/mariadb/bin_log.index  |
-| 关闭慢查询日志         | slow_query_log = 0                                  |
-| 慢查询日志路径         | slow_query_log_file = /server/logs/mariadb/slow.log |
-| 关闭通用日志           | general_log = 0                                     |
-| 通用日志文件           | general_log_file = /server/logs/mariadb/general.log |
-| 错误日志记录级别       | log_warnings = 0                                    |
-| 错误日志文件           | log_error = /server/logs/mariadb/err.log            |
+    路径： /etc/mysql/mariadb.cnf
 
-> 修改后的配置文件请参考 [my.cnf](./source/mariadb/my.cnf)
+    参考： [mariadb.cnf](./mariadb/mariadb.cnf)
+
+2. MariaDB 服务端子配置文件
+
+    路径： /etc/mysql/mariadb.conf.d/50-server.cnf
+
+    参考： [50-server.cnf](./mariadb/50-server.cnf)
+
+3. 先备份再修改
+
+    ```sh
+    $ cp /etc/mysql/mariadb.cnf{,.bak}
+    $ cp /etc/mysql/mariadb.conf.d/50-server.cnf{,.bak}
+    ```
+
+### 配置文件参考说明
+
+1. MariaDB [配置文件](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/) 官方说明
+2. MariaDB 配置文件 [日志选项](https://mariadb.com/kb/en/server-monitoring-logs/) 官方说明
+3. MariaDB 配置文件 [服务器端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
+4. MariaDB 配置文件 [客户端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
+5. MariaDB 配置文件 [系统变量选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
 
 ### 创建必要目录
 
