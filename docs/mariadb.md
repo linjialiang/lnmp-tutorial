@@ -204,6 +204,20 @@ $ apt install mariadb-server
     socket = /server/run/mariadb/mariadb.sock
     ```
 
+### 查看各选项组配置情况
+
+MariaDB 服务器端选项组配置情况：
+
+```sh
+$ mariadbd --help --verbose
+```
+
+MariaDB 客户端选项组配置情况：
+
+```sh
+$ mariadb --help --verbose
+```
+
 ### 首先，停止 MariaDB 服务
 
 ```sh
