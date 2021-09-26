@@ -151,18 +151,16 @@ $ apt install mariadb-server
 
 安装好 MariaDB 以后，自动创建的 [系统单元文件](./service/mariadb.service.md)
 
+MariaDB 操作指令：
+
+1. 启动： systemctl start mariadb
+2. 关闭： systemctl sto mariadb
+3. 重启： systemctl restart mariadb
+4. 状态： systemctl status mariadb
+
 ## 配置 MariaDB
 
 修改配置文件，让 MariaDB 更加容易管理和操作，具体如下：
-
-| 　序号 | 需要修改的配置项                |
-| ------ | ------------------------------- |
-| 01     | 修改 MariaDB 的 PID 文件路径    |
-| 02     | 修改 MariaDB 的 socket 文件路径 |
-| 03     | 修改 MariaDB 的 socket 文件路径 |
-| 04     | 修改 MariaDB 索引日志存放路径   |
-| 05     | 允许远程链接                    |
-| 06     | 创建 MariaDB 远程用户           |
 
 ### 配置文件路径
 
@@ -220,7 +218,9 @@ $ mariadb --help --verbose
 $ mysql --help --verbose
 ```
 
-### 首先，停止 MariaDB 服务
+### 停止 MariaDB 服务
+
+操作前，请先停止 MariaDB 服务
 
 ```sh
 $ service mariadb stop
@@ -256,65 +256,51 @@ $ systemctl stop mariadb
 1. MariaDB [配置文件](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/) 官方说明
 2. MariaDB 配置文件 [日志选项](https://mariadb.com/kb/en/server-monitoring-logs/) 官方说明
 3. MariaDB 配置文件 [服务器端选项](https://mariadb.com/kb/en/mysqld-options/) 官方说明
-5. MariaDB 配置文件 [系统变量选项](https://mariadb.com/kb/en/server-system-variables/) 官方说明
-4. MariaDB 配置文件 [客户端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
+4. MariaDB 配置文件 [系统变量选项](https://mariadb.com/kb/en/server-system-variables/) 官方说明
+5. MariaDB 配置文件 [客户端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
+
+## 初始化 data 目录
+
+MariaDB 使用 mysql_install_db 来初始化 data 目录数据
+
+详情请查看 [mysql_install_db](https://mariadb.com/kb/en/mysql_install_db/) 官方说明
 
 ### 创建必要目录
 
 创建必要目录，并设置用户权限为 MariaDB 用户
 
+1. MariaDB 数据库存放目录
+
+    ```sh
+    $ mkdir /server/data
+    $ chown mysql /server/data/
+    ```
+
+2. MariaDB 日志存放目录
+
+    ```sh
+    $ mkdir /server/logs/mariadb
+    $ chown mysql /server/logs/mariadb/
+    ```
+
+3. MariaDB 运行状态文件存放目录
+
+    如：pid 文件、socket 文件
+
+    ```sh
+    $ mkdir /server/run/mariadb
+    $ chown mysql /server/run/mariadb/
+    ```
+
+### 执行 mysql_install_db
+
 ```sh
-$ mkdir /server/data
-$ chown mysql /server/data/
-$ mkdir /server/logs/mariadb
-$ chown mysql /server/logs/mariadb/
-$ mkdir /server/run/mariadb
-$ chown mysql /server/run/mariadb/
-```
-
-### 初始化数据目录
-
-使用 `mysql_install_db` 这个工具初始化数据目录：
-
-```sh
-$ /usr/bin/mysql_install_db --user=mysql \
+$ mysql_install_db --user=mysql \
+--auth-root-authentication-method=socket \
+--auth-root-socket-user=mysql \
 --datadir=/server/data \
 --skip-test-db
 ```
-
-## 六、启动 MariaDB
-
-MariaDB 自带了守护进程启动方式，但是使用 Systemd 控制更加优秀
-
-1. 使用 MariaDB 自带的程序操作方法：
-
-    | 操作类型     | 指令                    |
-    | ------------ | ----------------------- |
-    | 启用 MariaDB | `$ mysqld_safe &`       |
-    | 停止 MariaDB | `$ mysqladmin shutdwon` |
-
-2. 使用 Systemd 单元(Unit)文件操作 MariaDB
-
-    经过修改的 MariaDB 已经无法通过之前 Unit 文件来管理，需要如下修改：
-
-    | Unit 文件        | 路径                                                          |
-    | ---------------- | ------------------------------------------------------------- |
-    | 自带的 Unit 文件 | /usr/lib/systemd/system/mariadb.service                       |
-    | 可用的 Unit 文件 | 源码请查看 [mariadb.server](./source/mariadb/mariadb.service) |
-
-    修改 MariaDB 自带的 Unit 文件，然后使用重新加载 systemd 配置：
-
-    ```sh
-    $ systemctl daemon-reload
-    ```
-
-    Systemd 常用的操作 MariaDB 指令：
-
-    | 操作类型     | 指令                    |
-    | ------------ | ----------------------- |
-    | 启动 MariaDB | systemctl start mysqld  |
-    | 关闭 MariaDB | systemctl stop mariadb  |
-    | 重启 MariaDB | systemctl restart mysql |
 
 ### 允许客户端远程连接
 

@@ -10,8 +10,8 @@ pid_file                   = /server/run/mariadb/mysqld.pid
 # pid-file                   = /server/run/mariadb/mysqld.pid
 basedir                    = /usr
 datadir                    = /server/data
-tmpdir                     = /server/tmp
-lc_messages_dir            = /server/logs/mariadb/messages
+tmpdir                     = /tmp
+lc_messages_dir            = /server/logs/mariadb
 lc_messages                = zh_CN
 # skip-external-locking
 # bind-address               = 127.0.0.1
@@ -48,8 +48,8 @@ long_query_time            = 10
 log_slow_verbosity         = query_plan,innodb,explain
 
 binlog_format=mixed
-log_bin                    = /server/logs/mariadb/binlog/mariadb_bin
-log_bin_index              = /server/logs/mariadb/binlog/mariadb_bin.index
+log_bin                    = /server/logs/mariadb/bin_log
+log_bin_index              = /server/logs/mariadb/bin_log.index
 expire_logs_days           = 30
 max_binlog_size            = 100M
 
