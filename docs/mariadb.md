@@ -306,16 +306,21 @@ $ mysql_install_db --user=mysql \
 
 默认情况下 MariaDB 只能通过 shell 终端或本地客户端管理数据，为了方便管理我们需要开启远程管理（开启远程是有风险的）
 
-1. 修改 MariaDB 配置文件里的 `bind-address` 参数即可：
+1. 修改 MariaDB 配置文件里的 bind_address 参数即可：
 
-    bind-address 只有 2 个参数值：
+    bind_address 只有 2 个参数值：
 
-    | 参数值    | 描述                               |
-    | --------- | ---------------------------------- |
-    | 0.0.0.0   | MariaDB 服务对所有 IP 的客户端开放 |
-    | 127.0.0.1 | MariaDB 服务对只对本地客户端开放   |
+    ```text
+    - 参数值：0.0.0.0
+    - 说明：MariaDB 对所有 IP 客户端开放
+    ```
 
-    > 注意：bind-address 无论怎么设置，shell 终端都可以登陆 MariaDB，两者无关！
+    ```text
+    - 参数值：127.0.0.1
+    - 说明：MariaDB 只对本地客户端开放
+    ```
+
+    > 注意：bind_address 无论怎么设置，shell 终端都可以登陆 MariaDB，两者无关！
 
 2. 创建允许本地客户端登陆的超级管理员用户
 
@@ -338,13 +343,3 @@ $ mysql_install_db --user=mysql \
     MariaDB [(none)]> grant all privileges on *.* to 'root'@'192.168.10.9' WITH GRANT OPTION;
     MariaDB [(none)]> flush privileges;
     ```
-
-    > 关于 sql 指令的具体含义，请参阅 [MariaDB 下的 sql 指令](./../../MariaDB/03-mariadb下的sql指令.md)
-
-    | 设备           | ip 地址        |
-    | -------------- | -------------- |
-    | MariaDB 服务器 | 192.168.10.251 |
-    | 客户机路由器   | 192.168.10.9   |
-    | 客户机         | 192.168.66.103 |
-
-    > 上表告诉我们多网段的局域网中，服务器只能识别与其处于同一网段的主设备，下级设备只能通过主设备来操作（这是网络的知识点了）！
