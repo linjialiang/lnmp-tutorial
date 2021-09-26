@@ -255,9 +255,9 @@ $ systemctl stop mariadb
 
 1. MariaDB [配置文件](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/) 官方说明
 2. MariaDB 配置文件 [日志选项](https://mariadb.com/kb/en/server-monitoring-logs/) 官方说明
-3. MariaDB 配置文件 [服务器端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
+3. MariaDB 配置文件 [服务器端选项](https://mariadb.com/kb/en/mysqld-options/) 官方说明
+5. MariaDB 配置文件 [系统变量选项](https://mariadb.com/kb/en/server-system-variables/) 官方说明
 4. MariaDB 配置文件 [客户端选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
-5. MariaDB 配置文件 [系统变量选项](https://mariadb.com/kb/en/clients-utilities/) 官方说明
 
 ### 创建必要目录
 
