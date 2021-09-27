@@ -230,13 +230,13 @@ $ systemctl stop mariadb
 
 ### 修改配置文件
 
-为了尽量减少修改，本次仅对 2 个配置文件做了修改：
-
 1. 主配置文件
 
     路径： /etc/mysql/mariadb.cnf
 
     参考： [mariadb.cnf](./mariadb/mariadb.cnf)
+
+    说明： 按需修改，本次未做修改
 
 2. MariaDB 服务端子配置文件
 
@@ -244,12 +244,16 @@ $ systemctl stop mariadb
 
     参考： [50-server.cnf](./mariadb/50-server.cnf)
 
+    说明： 本次做了修改
+
 3. 先备份再修改
 
     ```sh
     $ cp /etc/mysql/mariadb.cnf{,.bak}
     $ cp /etc/mysql/mariadb.conf.d/50-server.cnf{,.bak}
     ```
+
+> 提示：为了尽量减少修改，本次仅对 `50-server.cnf` 子配置文件做了修改
 
 ### 配置文件参考说明
 
@@ -292,6 +296,8 @@ MariaDB 使用 mysql_install_db 来初始化 data 目录数据
     $ chown mysql /server/run/mariadb/
     ```
 
+    > 提示：本次测试环境仅 pid 文件，socket 保持默认路径
+
 ### 执行 mysql_install_db
 
 ```sh
@@ -327,8 +333,8 @@ $ mysql_install_db --user=mysql \
     ```sh
     $ service mariadb start
     $ mysql
-    MariaDB [(none)]> create user 'admin'@'localhost' identified by '123456';
-    MariaDB [(none)]> grant all privileges on *.* to 'admin'@'localhost' WITH GRANT OPTION;
+    MariaDB [(none)]> create user 'emad'@'localhost' identified by '123456';
+    MariaDB [(none)]> grant all privileges on *.* to 'emad'@'localhost' WITH GRANT OPTION;
     MariaDB [(none)]> flush privileges;
     ```
 
@@ -339,7 +345,7 @@ $ mysql_install_db --user=mysql \
     ```sh
     $ service mariadb start
     $ mysql
-    MariaDB [(none)]> create user 'root'@'192.168.10.9' identified by '123456';
-    MariaDB [(none)]> grant all privileges on *.* to 'root'@'192.168.10.9' WITH GRANT OPTION;
+    MariaDB [(none)]> create user 'emad'@'192.168.10.9' identified by '123456';
+    MariaDB [(none)]> grant all privileges on *.* to 'emad'@'192.168.10.9' WITH GRANT OPTION;
     MariaDB [(none)]> flush privileges;
     ```
