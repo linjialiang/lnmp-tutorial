@@ -10,3 +10,5 @@ socket	= /server/run/mariadb/mysqld.sock
 !includedir /etc/mysql/conf.d/
 !includedir /etc/mysql/mariadb.conf.d/
 ```
+
+> 提示：本次测试环境，未修改该配置文件

@@ -333,8 +333,8 @@ $ mysql_install_db --user=mysql \
     ```sh
     $ service mariadb start
     $ mysql
-    MariaDB [(none)]> create user 'emad'@'localhost' identified by '123456';
-    MariaDB [(none)]> grant all privileges on *.* to 'emad'@'localhost' WITH GRANT OPTION;
+    MariaDB [(none)]> create user emad@localhost identified by '123456';
+    MariaDB [(none)]> grant all privileges on *.* to emad@localhost WITH GRANT OPTION;
     MariaDB [(none)]> flush privileges;
     ```
 
@@ -345,7 +345,38 @@ $ mysql_install_db --user=mysql \
     ```sh
     $ service mariadb start
     $ mysql
-    MariaDB [(none)]> create user 'emad'@'192.168.10.9' identified by '123456';
+    MariaDB [(none)]> create user emad@'192.168.10.9' identified by '123456';
     MariaDB [(none)]> grant all privileges on *.* to 'emad'@'192.168.10.9' WITH GRANT OPTION;
     MariaDB [(none)]> flush privileges;
+    ```
+
+4. 修改用户密码
+
+    ```sh
+    $ mysql
+    MariaDB [(none)]> ALTER USER emad@localhost IDENTIFIED BY '321123';
+    MariaDB [(none)]> flush privileges;
+    ```
+
+5. 删除用户
+
+    ```sh
+    $ mysql
+    MariaDB [(none)]> DROP USER emad@localhost;
+    ```
+
+6. 授予超级管理员权限
+
+    ```sh
+    $ mysql
+    MariaDB [(none)]> GRANT ALL PRIVILEGES ON  *.* to emad@localhost WITH GRANT OPTION;
+    ```
+
+7. 用户重命名
+
+    支持多个用户同时重命名
+
+    ```sh
+    $ mysql
+    MariaDB [(none)]> RENAME USER 'emad'@'192.168.10.9' TO 'admin'@'192.168.10.101', 'emad'@'localhost' TO 'admin'@'127.0.0.1';
     ```
