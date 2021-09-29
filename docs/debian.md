@@ -91,6 +91,17 @@ $ apt install locales
 $ dpkg-reconfigure locales
 ```
 
+### 设置时区
+
+tzdata 可以设置时区
+
+选项中文： `亚洲 > 上海`
+选项英文： `Asia > Shanghai`
+
+```sh
+$ dpkg-reconfigure tzdata
+```
+
 ### 升级内核
 
 跨大版本升级，内核只会小版本升级，无法打版本升级，需要我们自行升级
