@@ -48,3 +48,41 @@ PHP 按扩展库可分为：`动态库(共享扩展)` 和 `静态库`
 -   非官方认可扩展库，建议使用动态编译
 
 [官方认可扩展库列表](https://www.php.net/manual/zh/extensions.membership.php) 里的扩展，如有必要均可用静态库的方式构建，安全性和稳定性都由官方验证过
+
+## 构建依赖库
+
+本次扩展采用静态编译，所以依赖项最好需要先构建成功
+
+### 安装 redis
+
+[redis](https://redis.io/download) 是当下最热门的键值对(Key-Value)存储数据库，具体操作如下
+
+1. 安装 redis 必要依赖
+
+    ```sh
+    $ apt install pkg-config tcl
+    ```
+
+2. 清空 make 缓存
+
+    ```sh
+    $ make clean
+    ```
+
+```sh
+$ mkdir -p /server/redis
+$ cd /package/lnmp/
+$ wget https://download.redis.io/releases/redis-6.2.5.tar.gz
+$ tar -xzvf redis-6.2.5.tar.gz
+$ cd redis-6.2.5/
+$ make
+$ make test
+# 出现高亮信息 \o/ All tests passed without errors! 证明测试通过
+$ make install PREFIX=/server/redis
+```
+
+## 创建 php-fpm 用户
+
+```sh
+$ useradd -c 'This is the php-fpm user' -u 2003 -s /usr/sbin/nologin -d /server/www -M -U phpfpm
+```
