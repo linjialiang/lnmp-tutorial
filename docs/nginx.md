@@ -290,9 +290,8 @@ nginx 平滑升级步骤：
     通过 ps 指令查看
 
     ```sh
-    $ ps -ef|grep nginx
-    # 下面这个更加直观
-    $ ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | grep -E 'nginx|PID'
+    $ ps -ef|grep -E "nginx|PID" |grep -v grep
+    $ ps aux|grep -E "nginx|PID" |grep -v grep
     ```
 
     通过 pid 文件查看

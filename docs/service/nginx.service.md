@@ -1,3 +1,7 @@
+# Nginx 系统单元文件
+
+路径：/usr/lib/systemd/system/nginx.service
+
 ```sh
 [Unit]
 Description=nginx-1.20.1
@@ -10,7 +14,8 @@ Type=forking
 PIDFile=/server/run/nginx/nginx.pid
 ExecStart=/server/nginx/sbin/nginx
 ExecReload=/server/nginx/sbin/nginx -s reload
-Restart=on-failure
+ExecStop=/server/nginx/sbin/nginx -s quit
+Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
