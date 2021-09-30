@@ -81,6 +81,8 @@ $ make test
 $ make install PREFIX=/server/redis
 ```
 
+redis 很简单，编译构建后仅 3 个文件
+
 ## 创建 php-fpm 用户
 
 ```sh
