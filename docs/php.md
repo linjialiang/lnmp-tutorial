@@ -172,8 +172,13 @@ $ export PKG_CONFIG_PATH=/server/curl/lib/pkgconfig:$PKG_CONFIG_PATH
 ### 安装必要依赖
 
 ```sh
-$ apt install libxml2-dev
+$ apt install libxml2-dev libpng-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype-dev libonig-dev libyaml-dev
+$ apt install g++
 ```
+
+-   libonig-dev
+
+    对应提示：No package 'oniguruma' found
 
 ### 安装指令
 
@@ -210,3 +215,13 @@ $ ../configure --prefix=/server/php \
 --enable-swoole \
 --with-yaml
 ```
+
+### 编译并安装
+
+```sh
+$ make
+$ make test
+$ maek install
+```
+
+至此， php 安装完成
