@@ -49,8 +49,121 @@ PHP 按扩展库可分为：`动态库(共享扩展)` 和 `静态库`
 
 [官方认可扩展库列表](https://www.php.net/manual/zh/extensions.membership.php) 里的扩展，如有必要均可用静态库的方式构建，安全性和稳定性都由官方验证过
 
-## 创建 php-fpm 用户
+## 创建用户
+
+创建 php-fpm 用户
 
 ```sh
 $ useradd -c 'This is the php-fpm user' -u 2003 -s /usr/sbin/nologin -d /server/www -M -U phpfpm
+```
+
+## 静态编译 PECL 扩展
+
+本次将额外增加 4 个 PECL 扩展，并静态编译它们
+
+-   [imagick-3.5.1](https://pecl.php.net/package/imagick)
+-   [redis-5.3.4](https://pecl.php.net/package/redis)
+-   [swoole-4.7.1](https://pecl.php.net/package/swoole)
+-   [yaml-2.2.1](https://pecl.php.net/package/yaml)
+
+### 下载并解压
+
+1. 下载并解压 php
+
+```sh
+$ cd /package/lnmp/
+$ wget https://www.php.net/distributions/php-8.0.11.tar.gz
+$ tar -xzvf php-8.0.11.tar.gz
+```
+
+2. 下载并解压 PECL 扩展
+
+```sh
+$ cd /package/lnmp/ext/
+$ wget ...
+$ ...
+$ tar -xzvf imagick-3.5.1.tgz
+$ tar -xzvf redis-5.3.4.tgz
+$ tar -xzvf swoole-4.7.1.tgz
+$ tar -xzvf yaml-2.2.1.tgz
+```
+
+### 移动 PECL 扩展
+
+将 PECL 扩展移动到 php 的 ext 目录下
+
+```sh
+$ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
+$ mv redis-5.3.4 /package/lnmp/php-8.0.11/ext/redis
+$ mv swoole-4.7.1 /package/lnmp/php-8.0.11/ext/swoole
+$ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
+```
+
+### 重新生成 configure
+
+引入新的扩展后，需要强制 PHP 重新生成配置脚本 `configure`
+
+-   生成配置脚本依赖 autoconf
+
+    ```sh
+    $ apt install autoconf
+    ```
+
+-   强制生成 configure
+
+    ```sh
+    $ cd /package/lnmp/php-8.0.11/
+    $ mv configure{,.original}
+    $ ./buildconf --force
+    ```
+
+## 构建 PHP
+
+### 创建必要目录
+
+```sh
+mkdir /server/php
+mkdir /package/lnmp/php-8.0.11/build_php
+```
+
+### 安装必要依赖
+
+```sh
+$ apt install libxml2-dev
+```
+
+### 安装指令
+
+redis、imagick、swoole、yaml 这里使用最简单的指令
+
+更多指令请使用 `./congfigure -h | grep redis` 查看
+
+```sh
+$ cd /package/lnmp/php-8.0.11/build_php/
+$ ../configure --prefix=/server/php \
+--enable-fpm \
+--with-fpm-user=phpfpm \
+--with-fpm-group=phpfpm \
+--disable-short-tags \
+--with-openssl \
+--with-pcre-jit \
+--with-zlib \
+--with-curl \
+--enable-exif \
+--enable-ftp \
+--enable-gd \
+--with-webp \
+--with-jpeg \
+--with-xpm \
+--with-freetype \
+--enable-mbstring \
+--enable-mysqlnd \
+--with-mysql-sock=/run/mysqld/mysqld.sock \
+--with-mysqli=mysqlnd \
+--with-pdo-mysql=mysqlnd \
+--enable-sockets \
+--enable-redis \
+--with-imagick=/server/ImageMagick \
+--enable-swoole \
+--with-yaml
 ```
