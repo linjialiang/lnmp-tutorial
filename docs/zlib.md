@@ -1,11 +1,11 @@
-# openssl 篇
+# zlib 篇
 
-构建 openssl
+构建 zlib
 
 ## 创建必要目录
 
 ```sh
-$ mkdir /server/openssl
+$ mkdir /server/zlib
 ```
 
 ## 构建指令
@@ -15,18 +15,18 @@ $ mkdir /server/openssl
 nginx 构建时，产生的 make 临时文件需要清理掉
 
 ```sh
-$ cd /package/lnmp/openssl-1.1.1l/
+$ cd /package/lnmp/zlib-1.2.11/
 $ make clean
 ```
 
 ### 编译安装
 
 ```sh
-$ cd /package/lnmp/openssl-1.1.1l/
-$ ./config --openssldir=/server/openssl --prefix=/server/openssl
+$ cd /package/lnmp/zlib-1.2.11/
+$ ./configure --prefix=/server/zlib
 $ make
 $ make test
 $ make install
 ```
 
-至此，openssl 安装完成
+至此，zlib 安装完成

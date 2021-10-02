@@ -126,6 +126,49 @@ mkdir /server/php
 mkdir /package/lnmp/php-8.0.11/build_php
 ```
 
+### 加入 pkg-config
+
+构建 php 时，自己编译的依赖包需要手动加入到 pkg-config 中
+
+使用 export 是临时加入，关闭终端后就会消失，这刚好符合编译要求
+
+#### 原理
+
+1. 检测路径是否已经加入到 PKG_CONFIG_PATH 环境变量中，避免多次加入，从而造成混沦
+
+    ```sh
+    $ echo $PKG_CONFIG_PATH
+    ```
+
+2. 将路径加入到 PKG_CONFIG_PATH 环境变量中
+
+    加入单条：
+
+    ```sh
+    $ export PKG_CONFIG_PATH=/path/to/pkgconfig1:$PKG_CONFIG_PATH
+    ```
+
+    加入 2 条：
+
+    ```sh
+    $ export PKG_CONFIG_PATH=/path/to/pkgconfig1:/path/to/pkgconfig2:$PKG_CONFIG_PATH
+    ```
+
+3. 检测是否加入成功
+
+    ```sh
+    $ pkg-config --list-all
+    ```
+
+#### 指令
+
+```sh
+$ export PKG_CONFIG_PATH=/server/openssl/lib/pkgconfig:$PKG_CONFIG_PATH
+$ export PKG_CONFIG_PATH=/server/sqlite3/lib/pkgconfig:$PKG_CONFIG_PATH
+$ export PKG_CONFIG_PATH=/server/zlib/lib/pkgconfig:$PKG_CONFIG_PATH
+$ export PKG_CONFIG_PATH=/server/curl/lib/pkgconfig:$PKG_CONFIG_PATH
+```
+
 ### 安装必要依赖
 
 ```sh
@@ -145,7 +188,7 @@ $ ../configure --prefix=/server/php \
 --with-fpm-user=phpfpm \
 --with-fpm-group=phpfpm \
 --disable-short-tags \
---with-openssl \
+--with-openssl=/server/openssl \
 --with-pcre-jit \
 --with-zlib \
 --with-curl \
