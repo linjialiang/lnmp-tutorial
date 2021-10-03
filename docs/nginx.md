@@ -30,7 +30,7 @@ $ pkg-config --list-all
 ```sh
 $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
 $ cd /package/lnmp/nginx-1.20.1
-构建指令内容如下...
+# 构建指令内容如下...
 ```
 
 ### 本次构建指令
@@ -172,7 +172,7 @@ Nginx 平滑升级，具体操作如下：
 $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
 $ cd /package/lnmp/nginx-1.20.1
 $ ./configure --prefix=/server/nginx \
-构建指令见上面...
+# 构建指令参考前面的「本次构建指令」...
 ```
 
 ### 开始编译
@@ -183,13 +183,13 @@ $ ./configure --prefix=/server/nginx \
 $ make
 ```
 
-### 备份 nginx/sbin 目录下的 nginx 二进制
+备份旧的二进制文件
 
 ```sh
-$ mv /server/nginx/sbin/nginx{,.-1.20.1-01}
+$ mv /server/nginx/sbin/nginx{,.v1.20.1-01}
 ```
 
-### 拷贝新二进制文件到 nginx/sbin 目录下
+拷贝新的二进制文件
 
 ```sh
 $ cp -p -r /package/lnmp/nginx-1.20.1/bulid_nginx/nginx /server/nginx/sbin/
@@ -197,7 +197,7 @@ $ cp -p -r /package/lnmp/nginx-1.20.1/bulid_nginx/nginx /server/nginx/sbin/
 
 ### 平滑升级
 
-nginx 平滑升级步骤：
+nginx 平滑升级步骤如下：
 
 1. 查看旧版 nginx 的 pid
 
@@ -225,7 +225,7 @@ nginx 平滑升级步骤：
     指令实现：当进程没有访问者时，系统自动关闭当前进程
 
     ```sh
-    $ kill -WINCH 旧版 nginx 的 pid 值
+    $ kill -WINCH old_nginx_pid
     ```
 
 ## 配置 nginx
@@ -319,47 +319,49 @@ nginx 常用管理指令
 | 显示帮助信息 | /server/nginx/sbin/nginx -h        |
 | 列出配置信息 | /server/nginx/sbin/nginx -T        |
 
--   指定配置文件,启动 Nginx
+指定配置文件,启动 Nginx
 
-    ```sh
-    $ /server/nginx/sbin/nginx -c /server/nginx/conf/nginx.conf
-    ```
+```sh
+$ /server/nginx/sbin/nginx -c /server/nginx/conf/nginx.conf
+```
 
--   检测指定的 Nginx 配置文件
+检测指定的 Nginx 配置文件
 
-    ```sh
-    $ /server/nginx/sbin/nginx -t -c /server/nginx/conf/nginx.conf
-    ```
+```sh
+$ /server/nginx/sbin/nginx -t -c /server/nginx/conf/nginx.conf
+```
 
--   强制停止 Nginx 进程
+强制停止 Nginx 进程
 
-    ```sh
-    $ pkill -9 nginx
-    ```
+```sh
+$ pkill -9 nginx
+```
 
 ## Systemd 单元(Unit)
 
 用 Systemd 来管理守护进程更方便，建议为 Nginx 添加 Systemd 单元（Unit）
 
--   将 [nginx.service](./service/nginx.service.md) 拷贝/usr/lib/systemd/system 目录
+### 具体操作
 
-    ```sh
-    $ mv nginx.service /usr/lib/systemd/system/
-    ```
+将 [nginx.service](./service/nginx.service.md) 拷贝/usr/lib/systemd/system 目录
 
--   使用类似如下指令加入开机启动
+```sh
+$ mv nginx.service /usr/lib/systemd/system/
+```
 
-    ```sh
-    $ systemctl enable nginx
-    ```
+使用类似如下指令加入开机启动
 
--   重新加载 Systemd 配置文件
+```sh
+$ systemctl enable nginx
+```
 
-    ```sh
-    $ systemctl daemon-reload
-    ```
+重新加载 Systemd 配置文件
 
-nginx 单元（Unit）管理
+```sh
+$ systemctl daemon-reload
+```
+
+### nginx 单元（Unit）管理
 
 ```sh
 # 立即激活单元
