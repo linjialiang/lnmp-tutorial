@@ -165,14 +165,17 @@ mkdir /package/lnmp/php-8.0.11/build_php
 ```sh
 $ export PKG_CONFIG_PATH=/server/openssl/lib/pkgconfig:$PKG_CONFIG_PATH
 $ export PKG_CONFIG_PATH=/server/sqlite3/lib/pkgconfig:$PKG_CONFIG_PATH
-$ export PKG_CONFIG_PATH=/server/zlib/lib/pkgconfig:$PKG_CONFIG_PATH
-$ export PKG_CONFIG_PATH=/server/curl/lib/pkgconfig:$PKG_CONFIG_PATH
 ```
 
 ### 安装必要依赖
 
 ```sh
-$ apt install libxml2-dev libpng-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype-dev libonig-dev libyaml-dev
+$ apt install libxml2-dev
+$ apt install libpng-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype-dev
+$ apt install libonig-dev
+$ apt install libcurl4-openssl-dev
+$ apt install libyaml-dev
+$ apt install zlib1g-dev
 $ apt install g++
 ```
 
