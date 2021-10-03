@@ -113,51 +113,35 @@ $ apt install linux-image-amd64
 $ apt autoremove linux-image-4.19.0-11-amd64
 ```
 
-## 安装软件包
-
-安装几个实用扩展
+## 安装几个实用扩展
 
 ```sh
 $ apt install lrzsz tar bzip2 gzip curl wget neofetch
 ```
 
-安装 vim 中文文档
+1. lrzsz -- 传输工具
+2. curl -- 传输工具
+3. wget -- 传输工具
+4. tar -- 打包工具
+5. bzip2 -- 压缩工具
+6. gzip -- 压缩工具
+7. neofetch -- 系统信息工具
+
+## 安装 pkg-config
+
+pkg-config 是一个 linux 下的命令，用于获得某一个库/模块的所有编译相关的信息
+
+编译 PHP 时，部分依赖库需要加入到 pkg-config 中
 
 ```sh
-$ tar -xzvf vimcdoc-2.3.0.tar.gz
-$ cd vimcdoc-2.3.0/
-$ ./vimcdoc.sh -i
-```
-
-## 美化 bash 终端
-
-修改用户根目录下的 .bashrc 可以美化 bash 控制台，具体如下：
-
-```sh
-$ cp ~/.bashrc{,.bak}
-$ vi ~/.bashrc
-```
-
-示例：
-
-```sh
-PS1='[${debian_chroot:+($debian_chroot)}\u@Debian10 \W]\$ '
-export LS_OPTIONS='--color=auto'
-eval "`dircolors`"
-alias ls='ls $LS_OPTIONS -F'
-alias ll='ls $LS_OPTIONS -lF'
-alias lla='ls $LS_OPTIONS -laF'
-```
-
-使用 source 更新终端界面：
-
-```sh
-$ source ~/.bashrc
+$ apt install pkg-config
 ```
 
 ## 安装 Git
 
-### git 安装指令
+Git 是最流行的版本控制系统
+
+### 安装指令
 
 ```sh
 $ apt install git
@@ -190,4 +174,44 @@ $ vim /etc/gitconfig
 	autocrlf  = input
 	quotepath = false
 	editor    = vim
+```
+
+## 安装 Vim
+
+```sh
+$ apt install vim vim-scripts vim-editorconfig vim-gitgutter vim-solarized vim-youcompleteme
+```
+
+安装 vim 中文文档
+
+```sh
+$ tar -xzvf vimcdoc-2.3.0.tar.gz
+$ cd vimcdoc-2.3.0/
+$ ./vimcdoc.sh -i
+```
+
+## 美化 bash 终端
+
+修改用户根目录下的 .bashrc 可以美化 bash 控制台，具体如下：
+
+```sh
+$ cp ~/.bashrc{,.bak}
+$ vi ~/.bashrc
+```
+
+示例：
+
+```sh
+PS1='[${debian_chroot:+($debian_chroot)}\u@tx \W]\$ '
+export LS_OPTIONS='--color=auto'
+eval "`dircolors`"
+alias ls='ls $LS_OPTIONS -F'
+alias ll='ls $LS_OPTIONS -lF'
+alias lla='ls $LS_OPTIONS -laF'
+```
+
+使用 source 更新终端界面：
+
+```sh
+$ source ~/.bashrc
 ```
