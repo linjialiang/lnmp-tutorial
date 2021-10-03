@@ -174,6 +174,7 @@ $ apt install libxml2-dev
 $ apt install libpng-dev libwebp-dev libjpeg-dev libxpm-dev libfreetype-dev
 $ apt install libonig-dev
 $ apt install libcurl4-openssl-dev
+$ apt install libssl-dev
 $ apt install libyaml-dev
 $ apt install zlib1g-dev
 $ apt install g++
