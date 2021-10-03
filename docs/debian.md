@@ -215,3 +215,85 @@ alias lla='ls $LS_OPTIONS -laF'
 ```sh
 $ source ~/.bashrc
 ```
+
+## lnmp 准备工作
+
+### 目录说明
+
+-   /server 目录
+
+    存放运行 lnmp 时必要的数据和编译文件
+
+-   /package/lnmp 目录
+
+    下载的软件包，存放在这个目录下
+
+### 创建用户
+
+1. vsftpd 用户
+
+    ```sh
+    $ useradd -c 'This is the vsftpd service user' -u 2001 -s /usr/sbin/nologin -d /server/www -M -U www
+    ```
+
+2. nginx 用户
+
+    ```sh
+    $ useradd -c 'This is the nginx service user' -u 2002 -s /usr/sbin/nologin -d /server/www -M -U nginx
+    ```
+
+3. php-fpm 用户
+
+    ```sh
+    $ useradd -c 'This is the php-fpm service user' -u 2003 -s /usr/sbin/nologin -d /server/www -M -U phpfpm
+    ```
+
+### 创建子目录
+
+-   /server 目录
+
+    ```sh
+    $ mkdir -p /server/www
+    $ mkdir /server/default /server/sites /server/nginx /server/php /server/redis /server/sqlite
+    $ mkdir -p /server/run/mariadb
+    $ mkdir /server/run/nginx /server/run/redis /server/run/php
+    ```
+
+-   /package/lnmp 目录
+
+    ```sh
+    $ mkdir -p /package/lnmp/defasult
+    $ mkdir /package/lnmp/ext_static
+    $ mkdir /package/lnmp/ext_dynamic
+    ```
+
+### 目录配置权限
+
+```sh
+$ chown nginx /server/run/nginx
+$ chown phpfpm /server/run/php
+```
+
+### 安装包列表
+
+这些软件包都是需要解压的，后面都会用到
+
+-   /package/lnmp 目录
+
+    ```text
+    nginx-1.20.1.tar.gz
+    openssl-1.1.1l.tar.gz
+    pcre-8.45.tar.gz
+    php-8.0.11.tar.gz
+    redis-6.2.5.tar.gz
+    sqlite-autoconf-3360000.tar.gz
+    zlib-1.2.11.tar.gz
+    ```
+
+-   /package/lnmp/ext_static 目录
+
+    ```text
+    redis-5.3.4.tgz
+    swoole-4.7.1.tgz
+    yaml-2.2.1.tgz
+    ```
