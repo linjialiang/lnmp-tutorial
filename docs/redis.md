@@ -4,29 +4,15 @@
 
 ## 安装依赖
 
-对于 Redis，测试机当下缺失下面 2 个依赖库
+测试编译结果会用到 tcl
 
 ```sh
-$ apt install pkg-config tcl
+$ apt install tcl
 ```
 
 ## 构建安装
 
 Redis 构建相对简单
-
-### 创建必要目录
-
-```sh
-$ mkdir -p /server/redis /server/run/redis
-```
-
-### 下载并解压包
-
-```sh
-$ cd /package/lnmp/
-$ wget https://download.redis.io/releases/redis-6.2.5.tar.gz
-$ tar -xzvf redis-6.2.5.tar.gz
-```
 
 ### 构建指令
 
@@ -85,7 +71,7 @@ redis 源码包中自带了 1 个配置文件，我们就直接拿来，按需�
 ### 拷贝配置文件
 
 ```sh
-$ cp -p -r /package/lnmp/redis-6.2.5/redis.conf /server/redis/conf/redis.conf
+$ cp -p -r /package/lnmp/redis-6.2.5/redis.conf /server/redis/redis.conf
 ```
 
 ### 修改配置文件
@@ -128,13 +114,13 @@ $ systemctl daemon-reload
 
 ```sh
 # 立即激活单元
-$ systemctl start nginx.service
+$ systemctl start redis.service
 
 # 立即停止单元
-$ systemctl stop nginx.service
+$ systemctl stop redis.service
 
 # 重新启动
-$ systemctl restart nginx.service
+$ systemctl restart redis.service
 ```
 
 ## 查看启动状态
