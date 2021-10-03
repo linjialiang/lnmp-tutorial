@@ -236,7 +236,7 @@ $ systemctl stop mariadb
 
     参考： [mariadb.cnf](./mariadb/mariadb.cnf)
 
-    说明： 按需修改，本次未做修改
+    说明： 按需修改，本次做了修改
 
 2. MariaDB 服务端子配置文件
 
@@ -279,24 +279,6 @@ MariaDB 使用 mysql_install_db 来初始化 data 目录数据
     $ mkdir /server/data
     $ chown mysql /server/data/
     ```
-
-2. MariaDB 日志存放目录
-
-    ```sh
-    $ mkdir /server/logs/mariadb
-    $ chown mysql /server/logs/mariadb/
-    ```
-
-3. MariaDB 运行状态文件存放目录
-
-    如：pid 文件、socket 文件
-
-    ```sh
-    $ mkdir /server/run/mariadb
-    $ chown mysql /server/run/mariadb/
-    ```
-
-    > 提示：本次测试环境仅 pid 文件，socket 保持默认路径
 
 ### 执行 mysql_install_db
 
