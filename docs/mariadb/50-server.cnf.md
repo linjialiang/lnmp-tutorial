@@ -6,8 +6,8 @@
 [server]
 
 [mysqld]
-pid_file                   = /server/run/mariadb/mysqld.pid
-# pid-file                   = /server/run/mariadb/mysqld.pid
+pid_file                   = /server/run/mariadb/mariadb.pid
+# pid-file                   = /server/run/mariadb/mariadb.pid
 basedir                    = /usr
 datadir                    = /server/data
 tmpdir                     = /tmp

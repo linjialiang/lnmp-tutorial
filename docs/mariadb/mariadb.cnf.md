@@ -4,8 +4,7 @@
 
 ```conf
 [client-server]
-port	= 3306
-socket	= /server/run/mariadb/mysqld.sock
+socket	= /server/run/mariadb/mariadb.sock
 
 !includedir /etc/mysql/conf.d/
 !includedir /etc/mysql/mariadb.conf.d/
