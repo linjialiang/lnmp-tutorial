@@ -253,8 +253,6 @@ $ systemctl stop mariadb
     $ cp /etc/mysql/mariadb.conf.d/50-server.cnf{,.bak}
     ```
 
-> 提示：为了尽量减少修改，本次仅对 `50-server.cnf` 子配置文件做了修改
-
 ### 配置文件参考说明
 
 1. MariaDB [配置文件](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/) 官方说明
