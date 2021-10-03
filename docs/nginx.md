@@ -4,27 +4,14 @@ Nginx 是现如今性能最强劲的 Web 服务器及反向代理服务器
 
 ## 构建前
 
--   创建 nginx 用户及用户组
+### 查看构建参数
 
-    ```sh
-    $ useradd -c 'This is the nginx service user' -u 2002 -s /usr/sbin/nologin -d /server/www -M -U nginx
-    ```
+查看当前版本全部构建参数
 
--   创建必要目录，并设置用户
-
-    ```sh
-    $ mkdir -p /server/nginx /package/lnmp /server/run/nginx /server/logs/nginx
-    # root下启动nginx主程序，由root用户管理即可，这样更加安全
-    # 如果终端是nginx用户启动，则目录需要设置为nginx用户
-    $ chown nginx /server/run/nginx /server/logs/nginx
-    ```
-
--   查看当前版本全部构建参数
-
-    ```sh
-    $ cd /package/lnmp/nginx-1.20.1
-    $ ./configure --help
-    ```
+```sh
+$ cd /package/lnmp/nginx-1.20.1
+$ ./configure --help
+```
 
 ### 模块开发环境依赖
 
