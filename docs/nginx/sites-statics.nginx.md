@@ -3,11 +3,11 @@ server
 {
     # == 编码3选1，通常建议全部使用 utf-8
     # 支持gbk编码
-    charset gbk;
+    # charset gbk;
     # 支持utf8编码，http区块已经设置
-    charset utf-8;
+    # charset utf-8;
     # 同时支持 utf8 和 gbk 编码
-    charset ISO-88509-1;
+    # charset ISO-88509-1;
 
     listen 80;
     server_name example.com www.example.com;
