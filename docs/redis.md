@@ -16,37 +16,24 @@ Redis 构建相对简单
 
 ### 构建指令
 
-1. 进入目录
+```sh
+$ cd /package/lnmp/redis-6.2.5/
+$ make clean
+$ make
+```
 
-    ```sh
-    $ cd /package/lnmp/redis-6.2.5/
-    ```
+检测编译情况
 
-2. 清除 make 产生的临时文件
+```sh
+$ make test
+# 当出现高亮信息 \o/ All tests passed without errors! 证明测试通过
+```
 
-    ```sh
-    $ make clean
-    ```
+安装并指定安装目录
 
-3. 编译
-
-    ```sh
-    $ make
-    ```
-
-4. 测试
-
-    ```sh
-    $ make test
-    ```
-
-    当出现高亮信息 \o/ All tests passed without errors! 证明测试通过
-
-5. 安装并指定安装目录
-
-    ```sh
-    $ make install PREFIX=/server/redis
-    ```
+```sh
+$ make install PREFIX=/server/redis
+```
 
 ### 可执行文件
 
