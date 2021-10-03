@@ -140,25 +140,25 @@ $ /server/nginx/sbin/nginx
 $ curl -I 127.0.0.1
 ```
 
--   成功信号：
+成功信号：
 
-    ```sh
-    HTTP/1.1 200 OK
-    Server: nginx/1.20.1
-    Date: Wed, 15 Sep 2021 12:39:28 GMT
-    Content-Type: text/html
-    Content-Length: 612
-    Last-Modified: Wed, 15 Sep 2021 12:38:19 GMT
-    Connection: keep-alive
-    ETag: "6141e93b-264"
-    Accept-Ranges: bytes
-    ```
+```sh
+HTTP/1.1 200 OK
+Server: nginx/1.20.1
+Date: Wed, 15 Sep 2021 12:39:28 GMT
+Content-Type: text/html
+Content-Length: 612
+Last-Modified: Wed, 15 Sep 2021 12:38:19 GMT
+Connection: keep-alive
+ETag: "6141e93b-264"
+Accept-Ranges: bytes
+```
 
--   失败信号：
+失败信号：
 
-    ```sh
-    curl: (7) Failed to connect to 127.0.0.1 port 80: 拒绝连接
-    ```
+```sh
+curl: (7) Failed to connect to 127.0.0.1 port 80: 拒绝连接
+```
 
 到此，nginx 构建结束！
 
@@ -170,50 +170,14 @@ Nginx 平滑升级，具体操作如下：
 
 ```sh
 $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
-$ mkdir -p /server/nginx
 $ cd /package/lnmp/nginx-1.20.1
 $ ./configure --prefix=/server/nginx \
-... 内容见升级指令
+构建指令见上面...
 ```
 
-### 升级指令
+### 开始编译
 
-```sh
-$ ./configure --prefix=/server/nginx \
---builddir=/package/lnmp/nginx-1.20.1/build_nginx \
---user=nginx \
---group=nginx \
---error-log-path=/server/logs/nginx/error.log \
---http-log-path=/server/logs/nginx/access.log \
---pid-path=/server/run/nginx/nginx.pid \
-# 核心功能模块
---with-threads \
---with-file-aio \
-# 启用http功能模块
---with-http_ssl_module \
---with-http_v2_module \
---with-http_realip_module \
---with-http_geoip_module \
---with-http_gunzip_module \
---with-http_gzip_static_module \
---with-http_secure_link_module \
---with-http_degradation_module \
---with-http_stub_status_module \
-# 禁用http功能模块
---without-http_upstream_hash_module \
---without-http_upstream_ip_hash_module \
---without-http_upstream_least_conn_module \
---without-http_upstream_random_module \
---without-http_upstream_keepalive_module \
---without-http_upstream_zone_module \
-# 外库路径
---with-pcre=/package/lnmp/pcre-8.45 \
---with-pcre-jit \
---with-zlib=/package/lnmp/zlib-1.2.11 \
---with-openssl=/package/lnmp/openssl-1.1.1l
-```
-
-### 开始编译（只编译，不安装）
+升级只编译，不安装
 
 ```sh
 $ make
