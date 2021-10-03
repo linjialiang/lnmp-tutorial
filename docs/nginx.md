@@ -13,139 +13,115 @@ $ cd /package/lnmp/nginx-1.20.1
 $ ./configure --help
 ```
 
-### 模块开发环境依赖
+### 模块依赖环境
 
--   构建 http_xslt_module 模块需要 `libxml2/libxslt` 开发库
+```sh
+$ apt install g++ libgeoip-dev
+```
 
-    ```sh
-    $ apt install libxml2-dev libxslt1-dev
-    ```
+查看 geoip 是否存在 pkg-config 列表中
 
-    本次没有构建该模块
-
--   构建 http_image_filter_module 模块需要 `GD` 开发库
-
-    ```sh
-    $ apt install libgd-dev
-    ```
-
-    本次没有构建该模块
-
--   构建 http_geoip_module 模块需要 `libgeoip` 开发库
-
-    ```sh
-    $ apt install libgeoip-dev
-    ```
-
--   安装 g++
-
-    gcc 一般自带，构建必备；而 g++ 需要自己安装
-
-    ```sh
-    $ apt install g++
-    ```
-
-    本次构建没有依赖 g++的
+```sh
+$ pkg-config --list-all
+```
 
 ## 构建指令
 
 ```sh
 $ mkdir /package/lnmp/nginx-1.20.1/build_nginx
-$ mkdir -p /server/nginx
 $ cd /package/lnmp/nginx-1.20.1
-$ ./configure --prefix=/server/nginx \
-... 内容见构建指令
+构建指令内容如下...
 ```
 
--   允许构建的全部指令（参考）
+### 本次构建指令
 
-    ```sh
-    $ ./configure --prefix=/server/nginx \
-    --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
-    --user=nginx \
-    --group=nginx \
-    --error-log-path=/server/logs/nginx/error.log \
-    --http-log-path=/server/logs/nginx/access.log \
-    --pid-path=/server/run/nginx/nginx.pid \
-    # 核心功能模块
-    --with-threads \
-    --with-file-aio \
-    # 启用http功能模块
-    --with-http_ssl_module \
-    --with-http_v2_module \
-    --with-http_realip_module \
-    --with-http_addition_module \
-    --with-http_xslt_module \
-    --with-http_image_filter_module \
-    --with-http_geoip_module \
-    --with-http_sub_module \
-    --with-http_dav_module \
-    --with-http_flv_module \
-    --with-http_mp4_module \
-    --with-http_gunzip_module \
-    --with-http_gzip_static_module \
-    --with-http_auth_request_module \
-    --with-http_random_index_module \
-    --with-http_secure_link_module \
-    --with-http_degradation_module \
-    --with-http_slice_module \
-    --with-http_stub_status_module \
-    # 启用邮箱服务
-    --with-mail \
-    --with-mail_ssl_module \
-    # 启用负载均衡服务
-    --with-stream \
-    --with-stream_ssl_module \
-    --with-stream_realip_module \
-    --with-stream_geoip_module \
-    --with-stream_ssl_preread_module \
-    # 外库路径
-    --with-pcre=/package/lnmp/pcre-8.45 \
-    --with-pcre-jit \
-    --with-zlib=/package/lnmp/zlib-1.2.11 \
-    --with-openssl=/package/lnmp/openssl-1.1.1l \
-    # 开启调试，生产环境下建议禁用
-    --with-debug
-    ```
+```sh
+$ ./configure --prefix=/server/nginx \
+--builddir=/package/lnmp/nginx-1.20.1/build_nginx \
+--user=nginx \
+--group=nginx \
+--error-log-path=/server/logs/nginx/error.log \
+--http-log-path=/server/logs/nginx/access.log \
+--pid-path=/server/run/nginx/nginx.pid \
+# 核心功能模块
+--with-threads \
+--with-file-aio \
+# 启用http功能模块
+--with-http_ssl_module \
+--with-http_v2_module \
+--with-http_realip_module \
+--with-http_geoip_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_secure_link_module \
+--with-http_degradation_module \
+--with-http_stub_status_module \
+# 禁用http功能模块
+--without-http_upstream_hash_module \
+--without-http_upstream_ip_hash_module \
+--without-http_upstream_least_conn_module \
+--without-http_upstream_random_module \
+--without-http_upstream_keepalive_module \
+--without-http_upstream_zone_module \
+# 外库路径
+--with-pcre=/package/lnmp/pcre-8.45 \
+--with-pcre-jit \
+--with-zlib=/package/lnmp/zlib-1.2.11 \
+--with-openssl=/package/lnmp/openssl-1.1.1l
+```
 
--   普通服务器构建指令（当前构建指令）
+### 允许构建的全部指令
 
-    ```sh
-    $ ./configure --prefix=/server/nginx \
-    --builddir=/package/lnmp/nginx-1.20.1/build_nginx \
-    --user=nginx \
-    --group=nginx \
-    --error-log-path=/server/logs/nginx/error.log \
-    --http-log-path=/server/logs/nginx/access.log \
-    --pid-path=/server/run/nginx/nginx.pid \
-    # 核心功能模块
-    --with-threads \
-    --with-file-aio \
-    # 启用http功能模块
-    --with-http_ssl_module \
-    --with-http_v2_module \
-    --with-http_realip_module \
-    --with-http_geoip_module \
-    --with-http_gunzip_module \
-    --with-http_gzip_static_module \
-    --with-http_secure_link_module \
-    --with-http_degradation_module \
-    --with-http_stub_status_module \
-    # 禁用http功能模块
-    --without-http_upstream_hash_module \
-    --without-http_upstream_ip_hash_module \
-    --without-http_upstream_least_conn_module \
-    --without-http_upstream_random_module \
-    --without-http_upstream_keepalive_module \
-    --without-http_upstream_zone_module \
-    # 外库路径
-    --with-pcre=/package/lnmp/pcre-8.45 \
-    --with-pcre-jit \
-    --with-zlib=/package/lnmp/zlib-1.2.11 \
-    --with-openssl=/package/lnmp/openssl-1.1.1l
-    ```
+```sh
+$ ./configure --prefix=/server/nginx \
+--builddir=/package/lnmp/nginx-1.20.1/build_nginx \
+--user=nginx \
+--group=nginx \
+--error-log-path=/server/logs/nginx/error.log \
+--http-log-path=/server/logs/nginx/access.log \
+--pid-path=/server/run/nginx/nginx.pid \
+# 核心功能模块
+--with-threads \
+--with-file-aio \
+# 启用http功能模块
+--with-http_ssl_module \
+--with-http_v2_module \
+--with-http_realip_module \
+--with-http_addition_module \
+--with-http_xslt_module \
+--with-http_image_filter_module \
+--with-http_geoip_module \
+--with-http_sub_module \
+--with-http_dav_module \
+--with-http_flv_module \
+--with-http_mp4_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_auth_request_module \
+--with-http_random_index_module \
+--with-http_secure_link_module \
+--with-http_degradation_module \
+--with-http_slice_module \
+--with-http_stub_status_module \
+# 启用邮箱服务
+--with-mail \
+--with-mail_ssl_module \
+# 启用负载均衡服务
+--with-stream \
+--with-stream_ssl_module \
+--with-stream_realip_module \
+--with-stream_geoip_module \
+--with-stream_ssl_preread_module \
+# 外库路径
+--with-pcre=/package/lnmp/pcre-8.45 \
+--with-pcre-jit \
+--with-zlib=/package/lnmp/zlib-1.2.11 \
+--with-openssl=/package/lnmp/openssl-1.1.1l \
+# 开启调试，生产环境下建议禁用
+--with-debug
+```
 
-在 Debian 11 下，亲测 nginx-1.20.1 能完成上面两套指令的构建
+亲测：nginx-1.20.1 在 `Debian 11` 下，能完成上面两套指令的构建
 
 ### 开始编译安装
 
