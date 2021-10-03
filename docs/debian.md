@@ -280,20 +280,20 @@ $ chown phpfpm /server/run/php
 
 -   /package/lnmp 目录
 
-    ```text
-    nginx-1.20.1.tar.gz
-    openssl-1.1.1l.tar.gz
-    pcre-8.45.tar.gz
-    php-8.0.11.tar.gz
-    redis-6.2.5.tar.gz
-    sqlite-autoconf-3360000.tar.gz
-    zlib-1.2.11.tar.gz
-    ```
+    | 包名及下载                                                                  |
+    | --------------------------------------------------------------------------- |
+    | [nginx-1.20.1.tar.gz](http://nginx.org/en/download.html)                    |
+    | [openssl-1.1.1l.tar.gz](https://www.openssl.org/source/)                    |
+    | [pcre-8.45.tar.gz](https://sourceforge.net/projects/pcre/files/pcre/)       |
+    | [zlib-1.2.11.tar.gz](http://www.zlib.net/)                                  |
+    | [php-8.0.11.tar.gz](https://www.php.net/distributions/php-8.0.11.tar.gz)    |
+    | [redis-6.2.5.tar.gz](https://download.redis.io/releases/redis-6.2.5.tar.gz) |
+    | [sqlite-autoconf-3360000.tar.gz](www.sqlite.org/download.html)              |
 
 -   /package/lnmp/ext_static 目录
 
-    ```text
-    redis-5.3.4.tgz
-    swoole-4.7.1.tgz
-    yaml-2.2.1.tgz
-    ```
+    | 包名及下载                                              |
+    | ------------------------------------------------------- |
+    | [redis-5.3.4.tgz](https://pecl.php.net/package/redis)   |
+    | [swoole-4.7.1.tgz](https://pecl.php.net/package/swoole) |
+    | [yaml-2.2.1.tgz](https://pecl.php.net/package/yaml)     |
