@@ -2,19 +2,6 @@
 
 Nginx 是现如今性能最强劲的 Web 服务器及反向代理服务器
 
-## 涉及软件包
-
-Nginx 编译安装，所涉及到的软件包具体如下：
-
-| 源码及地址                                                            |
-| --------------------------------------------------------------------- |
-| [nginx-1.20.1.tar.gz](http://nginx.org/en/download.html)              |
-| [openssl-1.1.1l.tar.gz](https://www.openssl.org/source/)              |
-| [pcre-8.45.tar.gz](https://sourceforge.net/projects/pcre/files/pcre/) |
-| [zlib-1.2.11.tar.gz](http://www.zlib.net/)                            |
-
-> 提示：Nginx 官方说明里，pcre 外库支持的版本是 `4.4 — 8.43`
-
 ## 构建前
 
 -   创建 nginx 用户及用户组

@@ -257,6 +257,8 @@ $ source ~/.bashrc
     $ mkdir /server/default /server/sites /server/nginx /server/php /server/redis /server/sqlite
     $ mkdir -p /server/run/mariadb
     $ mkdir /server/run/nginx /server/run/redis /server/run/php
+    $ mkdir -p /server/logs/nginx
+    $ mkdir /server/logs/mariadb /server/logs/php
     ```
 
 -   /package/lnmp 目录
@@ -270,9 +272,12 @@ $ source ~/.bashrc
 ### 目录配置权限
 
 ```sh
-$ chown nginx /server/run/nginx
-$ chown phpfpm /server/run/php
+$ chown nginx /server/run/nginx /server/logs/nginx
+$ chown phpfpm /server/run/php /server/logs/php
+$ chown mysql /server/run/mariadb /server/logs/mariadb
 ```
+
+> 提示：mysql 用户需要在构建 MariaDB 时自动生成的
 
 ### 安装包列表
 
