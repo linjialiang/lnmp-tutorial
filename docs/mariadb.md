@@ -236,7 +236,7 @@ $ systemctl stop mariadb
 
     参考： [mariadb.cnf](./mariadb/mariadb.cnf)
 
-    说明： 按需修改，本次做了修改
+    说明： 按需修改，本次没有修改
 
 2. MariaDB 服务端子配置文件
 
