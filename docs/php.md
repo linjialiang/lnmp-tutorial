@@ -415,6 +415,65 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 -   必须设置单独的 socket 文件路径，如：tp6.sock、default.sock
 -   可以设置自己的用户，如：www、nginx、phpfpm、nobody
 
+## Composer
+
+Composer 是一个 PHP 依赖管理工具
+
+### 安装
+
+官方安装方式
+
+```sh
+$ cd /server/php/bin
+$ ./php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+# 验证需要去官方获取最新数据
+$ ./php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+$ ./php composer-setup.php
+$ ./php -r "unlink('composer-setup.php');"
+```
+
+网速不佳，也可以直接用阿里云镜像 [下载 composer](https://mirrors.aliyun.com/composer/composer.phar)
+
+### 全量镜像
+
+全局配置阿里云 Composer 全量镜像
+
+```sh
+$ /server/php/bin/php /server/php/bin/composer.phar config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+```
+
+取消阿里云 Composer 全量镜像配置
+
+```sh
+$ /server/php/bin/php /server/php/bin/composer.phar config -g --unset repos.packagist
+```
+
+### 创建 composer 脚本
+
+如上处理的很费劲，我们可以写个简单的脚本来解决
+
+```sh
+$ touch /server/php/bin/composer.sh
+```
+
+composer.sh 内容如下：
+
+```sh
+#!/bin/bash
+
+/server/php/bin/php /server/php/bin/composer.phar
+```
+
+创建软链接
+
+```sh
+$ ln -s /server/php/bin/composer.sh /usr/bin/composer
+```
+
+在/usr/bin 目录下，创建 composer 脚本软链接后，使用起来就很方便了！
+
+> 提示：redis php nginx sqlite 等软件如有必要也可以使用类似方法处理
+
 ### nginx 站点
 
 -   1 个站点
