@@ -6,7 +6,7 @@ PHP 是处理 php 脚本的解释器
 
 ## 扩展库说明
 
-PHP 按扩展库可分为：`动态库(共享扩展)` 和 `静态库`
+PHP 扩展库按加载时间可分为：`动态库(共享扩展)` 和 `静态库`
 
 ### 动态库
 
@@ -44,56 +44,25 @@ PHP 按扩展库可分为：`动态库(共享扩展)` 和 `静态库`
 ### 扩展库构建类型选择
 
 -   使用频繁的扩展库，推荐使用静态编译
--   变动频繁的扩展库，建议使用动态编译
+-   更新频繁的扩展库，建议使用动态编译
 -   非官方认可扩展库，建议使用动态编译
 
 [官方认可扩展库列表](https://www.php.net/manual/zh/extensions.membership.php) 里的扩展，如有必要均可用静态库的方式构建，安全性和稳定性都由官方验证过
 
-## 创建用户
-
-创建 php-fpm 用户
-
-```sh
-$ useradd -c 'This is the php-fpm user' -u 2003 -s /usr/sbin/nologin -d /server/www -M -U phpfpm
-```
-
 ## 静态编译 PECL 扩展
 
-本次将额外增加 4 个 PECL 扩展，并静态编译它们
+本次对 3 个 PECL 扩展，进行静态编译
 
--   [imagick-3.5.1](https://pecl.php.net/package/imagick)
 -   [redis-5.3.4](https://pecl.php.net/package/redis)
 -   [swoole-4.7.1](https://pecl.php.net/package/swoole)
 -   [yaml-2.2.1](https://pecl.php.net/package/yaml)
-
-### 下载并解压
-
-1. 下载并解压 php
-
-```sh
-$ cd /package/lnmp/
-$ wget https://www.php.net/distributions/php-8.0.11.tar.gz
-$ tar -xzvf php-8.0.11.tar.gz
-```
-
-2. 下载并解压 PECL 扩展
-
-```sh
-$ cd /package/lnmp/ext/
-$ wget ...
-$ ...
-$ tar -xzvf imagick-3.5.1.tgz
-$ tar -xzvf redis-5.3.4.tgz
-$ tar -xzvf swoole-4.7.1.tgz
-$ tar -xzvf yaml-2.2.1.tgz
-```
 
 ### 移动 PECL 扩展
 
 将 PECL 扩展移动到 php 的 ext 目录下
 
 ```sh
-$ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
+$ cd /package/lnmp/ext_static/
 $ mv redis-5.3.4 /package/lnmp/php-8.0.11/ext/redis
 $ mv swoole-4.7.1 /package/lnmp/php-8.0.11/ext/swoole
 $ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
@@ -119,18 +88,26 @@ $ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
 
 ## 构建 PHP
 
-### 创建必要目录
+### 创建构建目录
 
 ```sh
-mkdir /server/php
 mkdir /package/lnmp/php-8.0.11/build_php
 ```
 
-### 加入 pkg-config
+### 备份配置文件
+
+重新生成 configure 后，生成的配置文件也会改变
+
+```sh
+$ mv php.ini-development{,.original}
+$ mv php.ini-production{,.original}
+```
+
+### pkg-config 相关
 
 构建 php 时，自己编译的依赖包需要手动加入到 pkg-config 中
 
-使用 export 是临时加入，关闭终端后就会消失，这刚好符合编译要求
+使用 export 是临时加入环境变量中，但会永久记录在编译后的可执行文件信息里
 
 #### 原理
 
@@ -163,7 +140,6 @@ mkdir /package/lnmp/php-8.0.11/build_php
 #### 指令
 
 ```sh
-$ export PKG_CONFIG_PATH=/server/openssl/lib/pkgconfig:$PKG_CONFIG_PATH
 $ export PKG_CONFIG_PATH=/server/sqlite3/lib/pkgconfig:$PKG_CONFIG_PATH
 ```
 
@@ -176,8 +152,6 @@ $ apt install libonig-dev
 $ apt install libcurl4-openssl-dev
 $ apt install libssl-dev
 $ apt install libyaml-dev
-$ apt install zlib1g-dev
-$ apt install g++
 ```
 
 -   libonig-dev
@@ -197,7 +171,7 @@ $ ../configure --prefix=/server/php \
 --with-fpm-user=phpfpm \
 --with-fpm-group=phpfpm \
 --disable-short-tags \
---with-openssl=/server/openssl \
+--with-openssl \
 --with-pcre-jit \
 --with-zlib \
 --with-curl \
@@ -215,7 +189,6 @@ $ ../configure --prefix=/server/php \
 --with-pdo-mysql=mysqlnd \
 --enable-sockets \
 --enable-redis \
---with-imagick=/server/ImageMagick \
 --enable-swoole \
 --with-yaml
 ```
