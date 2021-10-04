@@ -372,6 +372,28 @@ php-fpm 配置文件分：主进程配置文件和工作池进程配置文件
     listen.mode = 0660
     ```
 
-## 加入 Systemd 管理
+## Systemd 管理
 
 php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会在构建目录下生成 Unit 文件
+
+### 加入 Systemd
+
+1. 创建 php-fpm 单元文件
+
+    ```sh
+    $ vim /usr/lib/systemd/system/php-fpm.service
+    ```
+
+    内容查看 [php-fpm.service](./service/php-fpm.service.md)
+
+2. 加入开机启动
+
+    ```sh
+    $ systemctl enable php-fpm
+    ```
+
+3. 重新加载 Systemd 配置文件
+
+    ```sh
+    $ systemctl daemon-reload
+    ```

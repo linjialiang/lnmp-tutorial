@@ -2,7 +2,7 @@
 
 路径：/usr/lib/systemd/system/redis.service
 
-```sh
+```conf
 [Unit]
 Description=redis-6.2.5
 After=network.target

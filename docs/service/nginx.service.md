@@ -2,7 +2,7 @@
 
 路径：/usr/lib/systemd/system/nginx.service
 
-```sh
+```conf
 [Unit]
 Description=nginx-1.20.1
 Wants=mariadb.service
