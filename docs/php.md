@@ -397,3 +397,30 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
     ```sh
     $ systemctl daemon-reload
     ```
+
+## php-fpm 注意事项
+
+### 工作进程
+
+1 个 unix-socket，对应 1 个 php-fpm 工作进程
+
+### 配置文件
+
+1 个 php-fpm 工作进程配置文件对应 1 个 unix-socket
+
+多个配置文件，不允许指向同一个 unix-socket，会出现冲突
+
+每个配置文件：
+
+-   必须设置单独的 socket 文件路径，如：tp6.sock、default.sock
+-   可以设置自己的用户，如：www、nginx、phpfpm、nobody
+
+### nginx 站点
+
+-   1 个站点
+
+    不同目录或文件类型，可以指向不同的 unix-socket
+
+-   多个站点
+
+    允许指向同一个 unix-socket，这是推荐的用法
