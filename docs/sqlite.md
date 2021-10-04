@@ -6,20 +6,6 @@
 
 由于 sqlite 并非主要数据库，所以我们这里只做最简单的构建
 
-### 创建必要目录
-
-```sh
-$ mkdir -p /server/sqlite3
-```
-
-### 下载并解压包
-
-```sh
-$ cd /package/lnmp/
-$ wget **/sqlite-autoconf-3360000.tar.gz
-$ tar -xzvf sqlite-autoconf-3360000.tar.gz
-```
-
 ### 构建指令
 
 1. 进入目录
