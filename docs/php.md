@@ -417,6 +417,10 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 
 ## Composer
 
+警告：服务器下建议不要安装 git composer npm 等开发辅助工具
+
+如果由需要，在开发环境处理好，然后拷贝进服务器即可
+
 Composer 是一个 PHP 依赖管理工具
 
 ### 安装
@@ -447,32 +451,6 @@ $ /server/php/bin/php /server/php/bin/composer.phar config -g repo.packagist com
 ```sh
 $ /server/php/bin/php /server/php/bin/composer.phar config -g --unset repos.packagist
 ```
-
-### 创建 composer 脚本
-
-如上处理的很费劲，我们可以写个简单的脚本来解决
-
-```sh
-$ touch /server/php/bin/composer.sh
-```
-
-composer.sh 内容如下：
-
-```sh
-#!/bin/bash
-
-/server/php/bin/php /server/php/bin/composer.phar
-```
-
-创建软链接
-
-```sh
-$ ln -s /server/php/bin/composer.sh /usr/bin/composer
-```
-
-在/usr/bin 目录下，创建 composer 脚本软链接后，使用起来就很方便了！
-
-> 提示：redis php nginx sqlite 等软件如有必要也可以使用类似方法处理
 
 ### nginx 站点
 
@@ -553,3 +531,12 @@ phpMyAdmin 支持 MariaDB
     - 大写字母: `A-Z`
     - 小写字母: `a-z`
     - ascii 特殊字符: `\~!@#$%^&*()_+-=[]{}\|;:'"/?.>,<`
+
+### phpRedisAdmin
+
+phpRedisAdmin 需要使用 composer 安装依赖后，才能正常使用
+
+```sh
+$ cd /server/default/pra
+$ /server/php/bin/php /server/php/bin/composer.phar update
+```
