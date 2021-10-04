@@ -269,3 +269,109 @@ OPcache 只能编译为共享扩展
     opcache.fast_shutdown=1
     opcache.enable_cli=1
     ```
+
+## 配置 php-fpm
+
+nginx 本身只能处理静态页面，如果要处理 php 脚本，就必须借助类似 php-fpm 的服务
+
+### 配置文件
+
+php-fpm 配置文件分：主进程配置文件和工作池进程配置文件
+
+#### 主进程
+
+主进程(master)配置文件，是针对整个 php-fpm 通用配置
+
+路径： /server/php/etc/php-fpm.conf
+
+数量： 有且仅有，1 个
+
+需求： 主进程配置文件必须存在
+
+默认： 默认未创建
+
+模板： /server/php/etc/php-fpm.conf.default
+
+#### 工作池进程
+
+工作池进程(pool)配置文件，是针对单个工作进程的配置文件
+
+路径： `/server/php/etc/php-fpm.d/*.conf`
+
+数量： 允许多个
+
+需求： 至少需要 1 个工作吃进程配置文件
+
+默认： 默认未创建
+
+模板： /server/php/etc/php-fpm.d/www.conf.default
+
+#### 配置文件案例
+
+-   主配置文件案例：
+
+    [php-fpm.conf](./php/php-fpm.conf.md)
+
+-   工作池进程配置文件案例：
+
+    [sites.conf](./php/sites.conf.md)
+
+## 参数说明
+
+这里仅简单了解下，关于更多参数说明，请查看 php-tutorial
+
+### 工作进程配置参数
+
+-   [default]
+
+    子进程名，通常与子进程配置文件命名相同
+
+-   listen
+
+    php-fpm 工作池进程对应的监听地址，可选端口或者 socket 文件
+
+    ```conf
+    listen = /server/run/php/default.sock
+    ```
+
+-   user/group
+
+    子进程用户/用户组，默认为 nobody
+
+    ```conf
+    user    = phpfpm
+    group   = phpfpm
+    ```
+
+-   listen.owner/listen.group
+
+    子进程监听用户/监听用户组，默认为 nobody
+
+    监听用户建议设置为 nginx 用户
+
+    ```conf
+    listen.owner    = nginx
+    listen.group    = nginx
+    ```
+
+-   listen.allowed_clients
+
+    监听允许访问的客户端 ip，默认仅允许本地访问
+
+    ```conf
+    listen.allowed_clients  = 127.0.0.1
+    ```
+
+-   listen.mode
+
+    监听权限，仅支持监听对象是 unix 套接字
+
+    如果使用 tcp 的端口方式访问，注释掉即可
+
+    ```conf
+    listen.mode = 0660
+    ```
+
+## 加入 Systemd 管理
+
+php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会在构建目录下生成 Unit 文件
