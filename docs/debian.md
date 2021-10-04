@@ -254,7 +254,7 @@ $ source ~/.bashrc
 
     ```sh
     $ mkdir -p /server/www
-    $ mkdir /server/default /server/sites /server/nginx /server/php /server/redis /server/sqlite
+    $ mkdir /server/default /server/sites /server/nginx /server/php /server/redis /server/sqlite3
     $ mkdir -p /server/run/mariadb
     $ mkdir /server/run/nginx /server/run/redis /server/run/php
     $ mkdir -p /server/logs/nginx
