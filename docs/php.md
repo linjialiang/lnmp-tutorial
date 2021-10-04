@@ -94,15 +94,6 @@ $ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
 mkdir /package/lnmp/php-8.0.11/build_php
 ```
 
-### 备份配置文件
-
-重新生成 configure 后，生成的配置文件也会改变
-
-```sh
-$ mv php.ini-development{,.original}
-$ mv php.ini-production{,.original}
-```
-
 ### pkg-config 相关
 
 构建 php 时，自己编译的依赖包需要手动加入到 pkg-config 中
@@ -202,3 +193,79 @@ $ maek install
 ```
 
 至此， php 安装完成
+
+## 配置 php.ini
+
+php.ini 是 php 的配置文件，具体信息请查看 [官方手册](https://www.php.net/manual/zh/ini.php)
+
+### 配置文件模板
+
+php 编译完成后，在源码包根目录下会生成两个 php.ini 模版文件
+
+-   开发环境推荐
+
+    php.ini-development
+
+-   部署环境推荐
+
+    php.ini-production
+
+### 配置文件路径
+
+下面两个指令，可以快速获取到配置文件存放路径
+
+-   使用 php-config 程序
+
+    ```sh
+    $ /server/php/bin/php --ini
+    ```
+
+-   使用 php 程序
+
+    ```sh
+    $ /server/php/bin/php-config --ini-path
+    ```
+
+推荐：使用 php 程序查询，会更加简洁
+
+### 拷贝配置文件
+
+当前环境为部署环境，所以拷贝 php.ini-production
+
+```sh
+$ cp -p -r /package/php-8.0.11/php.ini-production /server/php/lib/php.ini
+```
+
+### 检测配置文件
+
+使用 php 程序，快速检测配置文件使用加载成功
+
+```sh
+$ /server/php/bin/php --ini
+```
+
+### 开启 OPcache
+
+OPcache 只能编译为共享扩展
+
+-   开启方式
+
+    在 php.ini 第 960 行，将 `;` 去掉
+
+    ```ini
+    zend_extension=opcache
+    ```
+
+-   性能配置
+
+    在 php.ini 第 1761 行，加入以下内容，可获得较好性能
+
+    ```ini
+    [opcache]
+    opcache.memory_consumption=128
+    opcache.interned_strings_buffer=8
+    opcache.max_accelerated_files=4000
+    opcache.revalidate_freq=60
+    opcache.fast_shutdown=1
+    opcache.enable_cli=1
+    ```
