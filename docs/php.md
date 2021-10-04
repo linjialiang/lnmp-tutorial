@@ -424,3 +424,72 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 -   多个站点
 
     允许指向同一个 unix-socket，这是推荐的用法
+
+## 数据库管理工具
+
+将 /package/lnmp/default/ 目录下的 adminer、phpMyAdmin、phpRedisAdmin 加入到默认站点
+
+```sh
+$ cd /package/lnmp/default/
+$ mv adminer-xxx.php /server/default/adminer.php
+$ mv phpMyAdmin-xxx.php /server/default/pma
+$ mv phpRedisAdmin-xxx.php /server/default/pra
+```
+
+### adminer
+
+adminer 支持 MariaDB、sqlite3
+
+使用 pdo 链接
+
+不需要做任何配置
+
+### phpMyAdmin
+
+phpMyAdmin 支持 MariaDB
+
+使用 mysqli 链接
+
+需要简单配置下：
+
+1. 新建配置文件
+
+    在 pma 根目录下新建 config.inc.php 文件
+
+    ```sh
+    $ cd /server/default/pma/
+    $ touch config.inc.php
+    ```
+
+2. 配置文件内容
+
+    ```php
+    <?php
+    declare(strict_types=1);
+
+    $cfg['blowfish_secret'] = 'pma的密文，建议设置大于32为的随机字符串，这样更加安全';
+    $i = 0;
+    $i++;
+
+    $cfg['Servers'][$i]['auth_type'] = 'cookie';
+    $cfg['Servers'][$i]['host'] = 'localhost';
+    $cfg['Servers'][$i]['compress'] = false;
+    $cfg['Servers'][$i]['AllowNoPassword'] = false;
+
+    $cfg['UploadDir'] = '';
+    $cfg['SaveDir'] = '';
+
+    $cfg['DefaultLang'] = 'zh_CN';
+    $cfg['ThemeDefault'] = 'original';
+    ```
+
+    其中，pma 的密文 `$cfg['blowfish_secret']` 参数需要重新设置
+
+3. pma 密文
+
+    $cfg['blowfish_secret'] 参数用于设置 pma 密文，支持如下字符类型组合：
+
+    - 数值: `0-9`
+    - 大写字母: `A-Z`
+    - 小写字母: `a-z`
+    - ascii 特殊字符: `\~!@#$%^&*()_+-=[]{}\|;:'"/?.>,<`
