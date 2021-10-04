@@ -1,10 +1,10 @@
-# sqlite 篇
+# sqlite3 篇
 
-[sqlite](https://www.sqlite.org) 是一款轻型的数据库，也是经常跟 php 结合使用的
+[sqlite3](https://www.sqlite.org) 是一款轻型的数据库，也是经常跟 php 结合使用的
 
 ## 构建安装
 
-由于 sqlite 并非主要数据库，所以我们这里只做最简单的构建
+由于 sqlite3 并非主要数据库，所以我们这里只做最简单的构建
 
 ### 构建指令
 
