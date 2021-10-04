@@ -478,6 +478,7 @@ phpMyAdmin 支持 MariaDB
 
     $cfg['UploadDir'] = '';
     $cfg['SaveDir'] = '';
+    $cfg['TempDir']  = '/tmp/';
 
     $cfg['DefaultLang'] = 'zh_CN';
     $cfg['ThemeDefault'] = 'original';
