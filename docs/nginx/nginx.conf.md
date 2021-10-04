@@ -52,7 +52,7 @@ http
         index index.php;
 
         # 站点仅允许温州电信ip段访问
-        allow 39.186.0.0/16;
+        allow 39.186.0.0/16 60.181.0.0/16;
         deny all;
 
         # 设置站点仅至允许 GET、POST 请求
@@ -71,7 +71,7 @@ http
 
         location ~ \.php
         {
-            fastcgi_pass unix:/server/run/php/php8-fpm.sock;
+            fastcgi_pass unix:/server/run/php/default.sock;
 
             include fastcgi.conf;
         }

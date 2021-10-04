@@ -37,7 +37,7 @@ server
 
     location ~ \.php
     {
-        fastcgi_pass unix:/server/run/php/php-fpm.sock;
+        fastcgi_pass unix:/server/run/php/tp6.sock;
         fastcgi_index index.php;
         fastcgi_split_path_info ^(.+\.php)(.*)$;
 
