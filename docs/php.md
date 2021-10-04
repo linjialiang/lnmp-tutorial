@@ -415,6 +415,10 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 -   必须设置单独的 socket 文件路径，如：tp6.sock、default.sock
 -   可以设置自己的用户，如：www、nginx、phpfpm、nobody
 
+## 动态安装扩展
+
+有年限的服务器，内部网站复杂，如果新人刚刚过来，确实不宜重新构建，如果缺少扩展，最好以动态方式安装
+
 ## Composer
 
 警告：服务器下建议不要安装 git composer npm 等开发辅助工具
