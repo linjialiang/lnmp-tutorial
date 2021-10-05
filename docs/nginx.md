@@ -244,7 +244,7 @@ nginx 的配置原理，在这里不做过多讲解，直接给参考文件：
 2. [fastcgi-tp.conf](./nginx/fastcgi-tp.conf.md)
 
     ```text
-    描述：tp6 站点配置模版
+    描述：tp6 站点的 fastcgi 模版
     数量：按需新建，允许多个，命名需要区分
     路径：/server/nginx/conf/fastcgi-tp.conf
     操作：新增，通过 include 加载

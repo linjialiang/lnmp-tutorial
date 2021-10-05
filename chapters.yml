@@ -1,13 +1,27 @@
-- debian.md: Debian 篇
-- nginx.md: Nginx 篇
+- debian.md: Debian篇
+- nginx.md: Nginx篇
 - nginx/: nginx
 - nginx/nginx.conf.md: 主配置文件
-- nginx/gzip.conf.md: 'gzip配置'
-- nginx/cache.conf.md: nginx缓存配置
-- nginx/limit_req_http.conf.md: '限制访问-http区块设置'
-- nginx/limit_req_server.conf.md: '限制访问-server区块设置'
-- nginx/fastcgi-tp.conf.md: 'tp6代理配置'
-- nginx/sites-statics.nginx.md: '虚拟主机-静态模板'
-- nginx/sites-tp.nginx.md: 虚拟主机-tp6模板
-- service/: Systemd 组件
-- service/nginx.service.md: nginx 服务
+- nginx/fastcgi-tp.conf.md: tp6站点的fastcgi模版
+- nginx/cache.conf.md: 静态文件缓存模板
+- nginx/gzip.conf.md: 静态文件启用压缩
+- nginx/limit_req_http.conf.md: 限制请求-http块
+- nginx/limit_req_server.conf.md: 限制请求-server块
+- nginx/sites-statics.nginx.md: 静态站点配置模版
+- nginx/sites-tp.nginx.md: tp6 站点配置模版
+- mariadb.md: MariaDB篇
+- mariadb/: mariadb
+- mariadb/mariadb.cnf.md: MariaDB主配置文件
+- mariadb/50-server.cnf.md: MariaDB服务端子配置文件
+- mariadb/mariadb_release_signing_key.asc.md: MariaDB密钥
+- redis.md: redis篇
+- sqlite3.md: sqlite3篇
+- php.md: PHP篇
+- php/: php
+- php/php-fpm.conf.md: php-fpm主配置文件
+- php/sites.conf.md: php-fpm工作池配置文件
+- service/: service
+- service/nginx.service.md: Nginx系统单元文件
+- service/mariadb.service.md: MariaDB系统单元文件
+- service/php-fpm.service.md: php-fpm系统单元文件
+- service/redis.service.md: redis系统单元文件
