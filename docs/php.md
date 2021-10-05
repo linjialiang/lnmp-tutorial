@@ -415,9 +415,88 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 -   必须设置单独的 socket 文件路径，如：tp6.sock、default.sock
 -   可以设置自己的用户，如：www、nginx、phpfpm、nobody
 
-## 动态安装扩展
+## 动态(共享)扩展
 
 有年限的服务器，内部网站复杂，如果新人刚刚过来，确实不宜重新构建，如果缺少扩展，最好以动态方式安装
+
+这里以安装 imagick 为例
+
+### 依赖库
+
+imagick 扩展需要 ImageMagick 库支持，下面是构建指令
+
+```sh
+$ cd /package/lnmp/ImageMagick-7.1.0-9/
+$ ./configure --prefix=/server/ImageMagick/
+$ make
+$ make check
+$ make install
+```
+
+> 提示：静态编译 Imagick 到 PHP，需要将 pkgconfig 加入到 PKG_CONFIG_PATH 环境变量中
+
+```sh
+$ export PKG_CONFIG_PATH=/server/ImageMagick/lib/pkgconfig:$PKG_CONFIG_PATH
+```
+
+### 使用 phpize
+
+推荐大家使用，phpize 编译共享 PECL 扩展库
+
+> phpize 指令
+
+-   获取帮助
+
+    ```sh
+    $ /server/php/bin/phpize --help
+    ```
+
+-   获取版本
+
+    ```sh
+    $ /server/php/bin/phpize --version
+    $ /server/php/bin/phpize -v
+    ```
+
+-   清除 phpize 产生的临时文件
+
+    ```sh
+    $ /server/php/bin/phpize --clean
+    ```
+
+### 编译动态扩展
+
+php 核心扩展、内置扩展、捆绑扩展、pecl 扩展，它们的安装方式都大同小异
+
+```sh
+$ cd /package/lnmp/ext_dynamic/imagick-3.5.1/
+$ /server/php/bin/phpize
+$ ./configure --with-php-config=/server/php/bin/php-config \
+--with-imagick=/server/ImageMagick
+$ make
+$ make test
+$ make install
+```
+
+### 开启 imagick
+
+imagick 作为共享扩展需要在 php.ini 文件里启用
+
+-   开启方式
+
+    在 php.ini 第 960 行左右，添加一行内容
+
+    ```ini
+    extension=imagick
+    ```
+
+-   重新加载 php-fpm
+
+    ```sh
+    $ service php-fpm reload
+    ```
+
+> 到此，共享扩展安装完成
 
 ## Composer
 
