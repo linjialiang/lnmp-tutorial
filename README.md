@@ -26,13 +26,21 @@ LNMP 部署环境的教学内容主要涵盖如下几个知识点：
 
     redis 构建与运行
 
-    sqlite 构建与运行
+    sqlite3 构建与运行
 
 4. 后端语言
 
     PHP 解释器构建与 php-fpm 运行
 
-5. FTP 服务器
+5. 数据库管理工具
+
+    phpMyAdmin 是 MariaDB 管理工具
+
+    phpRedisAdmin 是 Redis 管理工具
+
+    Adminer 可以管理 MariaDB sqlite 等多种数据库，但不包括 Redis
+
+6. FTP 服务器
 
     vsftpd 搭建与运行
 
