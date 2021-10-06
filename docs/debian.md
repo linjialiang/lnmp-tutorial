@@ -232,8 +232,10 @@ $ source ~/.bashrc
 
 1. vsftpd 用户
 
+    pam 验证的虚拟用户的系统映射用户
+
     ```sh
-    $ useradd -c 'This is the vsftpd service user' -u 2001 -s /usr/sbin/nologin -d /server/www -M -U www
+    $ useradd -c 'This Linux user is used to map VSFTPD virtual users' -u 2001 -s /usr/sbin/nologin -d /server/default -M -U www
     ```
 
 2. nginx 用户
