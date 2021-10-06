@@ -66,6 +66,8 @@ $ cd /package/lnmp/ext_static/
 $ mv redis-5.3.4 /package/lnmp/php-8.0.11/ext/redis
 $ mv swoole-4.7.1 /package/lnmp/php-8.0.11/ext/swoole
 $ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
+# imagick 有用到也建议静态构建
+$ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
 ```
 
 ### 重新生成 configure
@@ -182,6 +184,12 @@ $ ../configure --prefix=/server/php \
 --enable-redis \
 --enable-swoole \
 --with-yaml
+```
+
+如果 imagick 需要静态编译，则增加如下一条信息：
+
+```sh
+--with-imagick=/server/ImageMagick \
 ```
 
 ### 编译并安装
@@ -433,11 +441,7 @@ $ make check
 $ make install
 ```
 
-> 提示：静态编译 Imagick 到 PHP，需要将 pkgconfig 加入到 PKG_CONFIG_PATH 环境变量中
-
-```sh
-$ export PKG_CONFIG_PATH=/server/ImageMagick/lib/pkgconfig:$PKG_CONFIG_PATH
-```
+> 提示：静态编译 Imagick 扩展到 PHP，同样需要先安装 ImageMagick 包
 
 ### 使用 phpize
 
