@@ -74,14 +74,23 @@ $ chmod 640 /etc/pam.d/vsftpd-guest
 $ vim /etc/pam.d/vsftpd-guest
 ```
 
-内容如下：
+vsftpd-guest 内容如下：
 
 ```conf
-auth required pam_mysql.so
-account required pam_mysql.so
+auth required pam_mysql.so config_file=/etc/pam-mysql.conf
+account required pam_mysql.so config_file=/etc/pam-mysql.conf
+```
+
+0.7RC1 版本之前，不支持指定配置文件，需改成：
+
+```conf
+auth required pam_mysql.so user=数据库用户名 passwd=数据库用户密码 host=127.0.0.1 db=数据库名 table=数据库表 usercolumn=用户字段 passwdcolumn=密码字段 crypt=2
+account required pam_mysql.so user=数据库用户名 passwd=数据库用户密码 host=127.0.0.1 db=数据库名 table=数据库表 usercolumn=用户字段 passwdcolumn=密码字段 crypt=2
 ```
 
 ## 数据库管理
+
+在 MariaDB 创建用于管理 pam 认证的数据库，并创建针对 vsftpd 认证的表
 
 ### 配置数据库信息
 
@@ -192,3 +201,9 @@ $ mkdir /server/vsftpd
     $ chown www:www /server/www
     $ chmod a-w /server/www
     ```
+
+到此 lnmp 内容基本完结
+
+局域网或本地虚拟机推荐使用 samba 来替代 vsftpd
+
+samba 不在 lnmp 规划里，期待下个作品
