@@ -25,3 +25,7 @@
 - service/mariadb.service.md: MariaDB系统单元文件
 - service/php-fpm.service.md: php-fpm系统单元文件
 - service/redis.service.md: redis系统单元文件
+- vsftpd.md: vsftpd篇
+- vsftpd/: vsftpd
+- vsftpd/pam-mysql.conf.md: pam-mysql配置文件
+- vsftpd/vsftpd.conf.md: vsftpd配置文件
