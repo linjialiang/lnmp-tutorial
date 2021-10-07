@@ -403,3 +403,13 @@ $ usermod -G www phpfpm
     ```sh
     $ chmod 770 /write/to/path
     ```
+
+-   读取权限
+
+    如果只需要读取权限的话，安全起见修改为 root 用户
+
+    ```sh
+    $ chown root:root /read/to/path
+    $ find /read/to/path -type f -exec chmod 444 {} \;
+    $ find /read/to/path -type f -exec chmod 555 {} \;
+    ```
