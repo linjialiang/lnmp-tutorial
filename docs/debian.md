@@ -317,3 +317,89 @@ $ chown mysql /server/run/mariadb /server/logs/mariadb
 | 包名及下载                                                |
 | --------------------------------------------------------- |
 | [imagick-3.5.1.tgz](https://pecl.php.net/package/imagick) |
+
+## 用户
+
+本次 lnmp 主要涉及到如下几个用户
+
+nginx phpfpm www mysql root
+
+### root
+
+root 是 linux 的超级用户，拥有操作系统的全部能力
+
+略过讲解
+
+### mysql
+
+mysql 用户是 MariaDB 的管理用户
+
+-   MariaDB 的 unix socket 使用 mysql 用户创建
+-   MariaDB 的 pid 文件使用 mysql 用户创建
+-   MariaDB 的数据库使用 mysql 用户管理
+-   MariaDB 运行用户也是 mysql
+
+### www
+
+www 用户是 vsftpd 的用户，我们 web 站点文件使用 www 用户及 www 用户组
+
+### nginx
+
+nginx 用户是 nginx 服务器访问 web 站点的用户
+
+为了保证 nginx 用户能正常访问 web 站点，需要将 nginx 加入到 www 用户组中
+
+```sh
+$ usermod -G www nginx
+```
+
+### phpfpm
+
+phpfpm 用户是 php-fpm 服务的管理用户
+
+php-fpm 服务用户监听站点的用户是 nginx
+
+所以通常来讲 phpfpm 用户并不需要对 web 站点有访问权限，如有必要，再行加入到 www 用户组中
+
+```sh
+$ usermod -G www phpfpm
+```
+
+## 文件权限
+
+| 文件类型 | 权限 |
+| -------- | ---- |
+| 用户     | www  |
+| 用户组   | www  |
+| 目录     | 750  |
+| 文件     | 640  |
+
+-   设置站点用户
+
+    ```sh
+    $ chown www:www -R /site/to/path/
+    ```
+
+-   设置站点文件权限
+
+    ```sh
+    $ find /site/to/path -type f -exec chmod 640 {} \;
+    ```
+
+-   设置站点目录权限
+
+    ```sh
+    $ find /site/to/path -type d -exec chmod 750 {} \;
+    ```
+
+-   写入权限
+
+    如果 php-fpm 服务对目录需要写入权限
+
+    通常只需要 nginx 用户有写入权限即可
+
+    phpfpm 用户通常与站点权限无光
+
+    ```sh
+    $ chmod 770 /write/to/path
+    ```
