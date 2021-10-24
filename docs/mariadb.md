@@ -154,7 +154,7 @@ $ apt install mariadb-server
 MariaDB 操作指令：
 
 1. 启动： systemctl start mariadb
-2. 关闭： systemctl sto mariadb
+2. 关闭： systemctl stop mariadb
 3. 重启： systemctl restart mariadb
 4. 状态： systemctl status mariadb
 
