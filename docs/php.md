@@ -241,7 +241,7 @@ php 编译完成后，在源码包根目录下会生成两个 php.ini 模版文�
 当前环境为部署环境，所以拷贝 php.ini-production
 
 ```sh
-$ cp -p -r /package/php-8.0.11/php.ini-production /server/php/lib/php.ini
+$ cp -p -r /package/lnmp/php-8.0.11/php.ini-production /server/php/lib/php.ini
 ```
 
 ### 检测配置文件
