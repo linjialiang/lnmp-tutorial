@@ -266,7 +266,7 @@ $ source ~/.bashrc
 -   /package/lnmp 目录
 
     ```sh
-    $ mkdir -p /package/lnmp/defasult
+    $ mkdir -p /package/lnmp/default
     $ mkdir /package/lnmp/ext_static
     $ mkdir /package/lnmp/ext_dynamic
     ```
