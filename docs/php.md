@@ -54,7 +54,7 @@ PHP 扩展库按加载时间可分为：`动态库(共享扩展)` 和 `静态库
 本次对 3 个 PECL 扩展，进行静态编译
 
 -   [redis-5.3.4](https://pecl.php.net/package/redis)
--   [swoole-4.7.1](https://pecl.php.net/package/swoole)
+-   [swoole-4.8.0](https://pecl.php.net/package/swoole)
 -   [yaml-2.2.1](https://pecl.php.net/package/yaml)
 
 ### 移动 PECL 扩展
@@ -63,11 +63,11 @@ PHP 扩展库按加载时间可分为：`动态库(共享扩展)` 和 `静态库
 
 ```sh
 $ cd /package/lnmp/ext_static/
-$ mv redis-5.3.4 /package/lnmp/php-8.0.11/ext/redis
-$ mv swoole-4.7.1 /package/lnmp/php-8.0.11/ext/swoole
-$ mv yaml-2.2.1 /package/lnmp/php-8.0.11/ext/yaml
+$ mv redis-5.3.4 /package/lnmp/php-8.0.12/ext/redis
+$ mv swoole-4.8.0 /package/lnmp/php-8.0.12/ext/swoole
+$ mv yaml-2.2.1 /package/lnmp/php-8.0.12/ext/yaml
 # imagick 有用到也建议静态构建
-$ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
+$ mv imagick-3.5.1 /package/lnmp/php-8.0.12/ext/imagick
 ```
 
 ### 重新生成 configure
@@ -77,13 +77,13 @@ $ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
 -   生成配置脚本依赖 autoconf
 
     ```sh
-    $ apt install autoconf
+    $ apt install autoconf -y
     ```
 
 -   强制生成 configure
 
     ```sh
-    $ cd /package/lnmp/php-8.0.11/
+    $ cd /package/lnmp/php-8.0.12/
     $ mv configure{,.original}
     $ ./buildconf --force
     ```
@@ -93,7 +93,7 @@ $ mv imagick-3.5.1 /package/lnmp/php-8.0.11/ext/imagick
 ### 创建构建目录
 
 ```sh
-mkdir /package/lnmp/php-8.0.11/build_php
+mkdir /package/lnmp/php-8.0.12/build_php
 ```
 
 ### pkg-config 相关
@@ -158,7 +158,7 @@ redis、imagick、swoole、yaml 这里使用最简单的指令
 更多指令请使用 `./congfigure -h | grep redis` 查看
 
 ```sh
-$ cd /package/lnmp/php-8.0.11/build_php/
+$ cd /package/lnmp/php-8.0.12/build_php/
 $ ../configure --prefix=/server/php \
 --enable-fpm \
 --with-fpm-user=phpfpm \
@@ -241,7 +241,7 @@ php 编译完成后，在源码包根目录下会生成两个 php.ini 模版文�
 当前环境为部署环境，所以拷贝 php.ini-production
 
 ```sh
-$ cp -p -r /package/lnmp/php-8.0.11/php.ini-production /server/php/lib/php.ini
+$ cp -p -r /package/lnmp/php-8.0.12/php.ini-production /server/php/lib/php.ini
 ```
 
 ### 检测配置文件
@@ -434,14 +434,23 @@ php-fpm 自带了一套比较完善的进程管理指令，编译完成后还会
 imagick 扩展需要 ImageMagick 库支持，下面是构建指令
 
 ```sh
-$ cd /package/lnmp/ImageMagick-7.1.0-9/
-$ ./configure --prefix=/server/ImageMagick/
-$ make
+$ cd /package/lnmp/ImageMagick-7.1.0-13/
+$ nohup ./configure --prefix=/server/ImageMagick/ &
+$ nohup make -j2 &
 $ make check
 $ make install
 ```
 
 > 提示：静态编译 Imagick 扩展到 PHP，同样需要先安装 ImageMagick 包
+
+```sh
+# 使用 nohup + 指令 + & 程序将在后台执行
+# 需要使用 ps 指令来查看是否执行完毕
+$ ps -ef|grep -E "id号|PID" |grep -v grep
+
+```
+
+
 
 ### 使用 phpize
 

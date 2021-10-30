@@ -7,7 +7,7 @@
 测试编译结果会用到 tcl
 
 ```sh
-$ apt install tcl
+$ apt install tcl -y
 ```
 
 ## 构建安装
@@ -17,7 +17,7 @@ Redis 构建相对简单
 ### 构建指令
 
 ```sh
-$ cd /package/lnmp/redis-6.2.5/
+$ cd /package/lnmp/redis-6.2.6/
 $ make clean
 $ make
 ```
@@ -58,7 +58,7 @@ redis 源码包中自带了 1 个配置文件，我们就直接拿来，按需�
 ### 拷贝配置文件
 
 ```sh
-$ cp -p -r /package/lnmp/redis-6.2.5/redis.conf /server/redis/redis.conf
+$ cp -p -r /package/lnmp/redis-6.2.6/redis.conf /server/redis/redis.conf
 ```
 
 ### 修改配置文件

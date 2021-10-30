@@ -16,7 +16,7 @@ $ ./configure --help
 ### 模块依赖环境
 
 ```sh
-$ apt install g++ libgeoip-dev
+$ apt install g++ libgeoip-dev -y
 ```
 
 查看 geoip 是否存在 pkg-config 列表中

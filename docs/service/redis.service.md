@@ -4,7 +4,7 @@
 
 ```conf
 [Unit]
-Description=redis-6.2.5
+Description=redis-6.2.6
 After=network.target
 
 [Service]
